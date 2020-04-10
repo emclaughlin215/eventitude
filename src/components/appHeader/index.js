@@ -1,10 +1,10 @@
-import {connect} from 'react-redux';
-import {AppHeader} from './AppHeader';
+// import {connect} from 'react-redux';
+// import {AppHeader} from './AppHeader';
 
-const mapStateToProps = state => {
-  return {
-    eventsToShow: state.EventsFeedReducer.eventsToShow,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     eventsToShow: state.EventsFeedReducer.eventsToShow,
+//   };
+// };
 
-export default connect(mapStateToProps)(AppHeader);
+// export default connect(mapStateToProps)(AppHeader);

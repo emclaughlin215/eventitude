@@ -1,6 +1,13 @@
 import React from 'react';
-import {Text, View, ScrollView, Image} from 'react-native';
-import styles from './styles';
+import {
+  Text,
+  Dimensions,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+} from 'react-native';
+import {PropTypes} from 'prop-types';
 
 export class Event extends React.Component {
   render() {
@@ -27,4 +34,34 @@ export class Event extends React.Component {
   }
 }
 
-Event.propTypes = {};
+Event.propTypes = {
+  navigation: PropTypes.shape({
+    date: PropTypes.str,
+    eventTitle: PropTypes.str,
+    image: PropTypes.str,
+  }),
+};
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  textHeader: {
+    fontSize: 40,
+    alignSelf: 'flex-start',
+    padding: 10,
+  },
+  textInfo: {
+    fontSize: 20,
+    alignSelf: 'flex-start',
+    paddingLeft: 15,
+    paddingTop: 5,
+  },
+  image: {
+    height: Dimensions.get('window').width / 1.5,
+    width: Dimensions.get('window').width / 1.5,
+    alignItems: 'center',
+  },
+});

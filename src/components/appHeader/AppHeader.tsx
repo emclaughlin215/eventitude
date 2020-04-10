@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, StyleSheet, Picker, TouchableWithoutFeedback} from 'react-native';
 import {Icon} from 'react-native-elements';
-import {DropdownMenu} from './DropdownMenu';
-import styles from './styles';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {updateEventsFeedType} from '../../actions/EventsFeedAction';
+import {bindActionCreators} from 'redux';
+import {PropTypes} from 'prop-types';
 
 export class AppHeader extends React.Component {
   render() {
@@ -31,10 +32,15 @@ export class AppHeader extends React.Component {
           </TouchableWithoutFeedback>
         </View>
         <View>
-          <DropdownMenu
-            menuItems={['Upcoming Events', 'Past Events']}
-            navigation={this.props.navigation}
-          />
+          <Picker
+            selectedValue={
+              this.props.showUpcoming ? 'Upcoming Events' : 'Past Events'
+            }
+            style={styles.DropdownMenu}
+            onValueChange={() => updateEventsFeedType()}>
+            <Picker.Item label="Past Events" />
+            <Picker.Item label="Upcoming Events" />
+          </Picker>
         </View>
       </View>
     );
@@ -42,6 +48,47 @@ export class AppHeader extends React.Component {
 }
 
 AppHeader.propTypes = {
-  eventsToShow: PropTypes.str,
-  changeEventsFeedType: PropTypes.func,
+  showUpcoming: PropTypes.bool,
+  updateEventsFeedType: PropTypes.func,
 };
+
+const styles = StyleSheet.create({
+  topIconsLayout: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 30,
+    paddingRight: 30,
+    paddingBottom: 20,
+  },
+  topLeftIcons: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  topIcon: {
+    paddingLeft: 20,
+  },
+  DropdownMenu: {
+    height: 50,
+    width: 200,
+  },
+});
+
+const mapStateToProps = state => {
+  return {
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateEventsFeedType,
+    },
+    dispatch,
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AppHeader);
