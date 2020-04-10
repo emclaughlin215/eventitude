@@ -1,22 +1,8 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {Text, View, ScrollView, Image} from 'react-native';
+import styles from './styles';
 
-interface Props {}
-
-interface State {}
-
-export class Event extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class Event extends React.Component {
   render() {
     return (
       <View>
@@ -41,26 +27,4 @@ export class Event extends React.Component<Props, State> {
   }
 }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  textHeader: {
-    fontSize: 40,
-    alignSelf: 'flex-start',
-    padding: 10,
-  },
-  textInfo: {
-    fontSize: 20,
-    alignSelf: 'flex-start',
-    paddingLeft: 15,
-    paddingTop: 5,
-  },
-  image: {
-    height: Dimensions.get('window').width / 1.5,
-    width: Dimensions.get('window').width / 1.5,
-    alignItems: 'center',
-  },
-});
+Event.propTypes = {};

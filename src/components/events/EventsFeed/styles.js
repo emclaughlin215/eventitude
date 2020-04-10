@@ -1,4 +1,4 @@
-import StyleSheet from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export const styles = StyleSheet.create({
   eventsFeed: {
@@ -19,5 +19,27 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 80,
+  },
+  preview: {
+    flexDirection: 'column',
+    marginTop: 40,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 15,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  date: {
+    fontSize: 15,
+    fontStyle: 'italic',
+  },
+  image: {
+    height: 512,
+    width: Dimensions.get('window').width,
+    alignItems: 'center',
   },
 });

@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
-import {DropdownMenu} from './DropdownMenu';
+import {CreateEvent} from './CreateEvent';
 
 const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps)(DropdownMenu);
+export default connect(mapStateToProps)(CreateEvent);

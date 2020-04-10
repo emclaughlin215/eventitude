@@ -1,13 +1,15 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
-import {PastEventsFeed} from './../components/events/PastEventsFeed';
+
 import {Profile} from './../components/userPages/Profile';
-import {UpcomingEventsFeed} from './../components/events/UpcomingEventsFeed';
-import {Event} from './../components/events/Event';
-import {CreateEvent} from './../components/events/CreateEvent';
 import {Settings} from './../components/userPages/Settings';
+
 import {Mapping} from './../components/maps/Mapping';
+
+import {Event} from './../components/events/Event/Event';
+import {CreateEvent} from './../components/events/CreateEvent/CreateEvent';
+import {EventsFeed} from './../components/events/EventsFeed/EventsFeed';
 
 const EventNavigation = createMaterialTopTabNavigator({
   details: Event,
@@ -24,14 +26,8 @@ const SettingNavigation = createMaterialTopTabNavigator({
 
 const EventsNavigation = createStackNavigator(
   {
-    upcoming: {
-      screen: UpcomingEventsFeed,
-      navigationOptions: {
-        header: false,
-      },
-    },
-    past: {
-      screen: PastEventsFeed,
+    eventsFeed: {
+      screen: EventsFeed,
       navigationOptions: {
         header: false,
       },

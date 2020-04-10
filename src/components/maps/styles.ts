@@ -1,3 +1,5 @@
+import {StyleSheet} from 'react-native';
+
 export var defaultMapStyle = [
   {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
   {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
@@ -78,3 +80,17 @@ export var defaultMapStyle = [
     stylers: [{color: '#17263c'}],
   },
 ];
+
+export const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});

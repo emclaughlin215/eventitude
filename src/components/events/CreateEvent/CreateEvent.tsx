@@ -2,15 +2,7 @@ import React from 'react';
 
 import {Text, View} from 'react-native';
 
-interface Props {}
-
-interface State {}
-
-export class CreateEvent extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class CreateEvent extends React.Component {
   render() {
     return (
       <View>
@@ -19,3 +11,5 @@ export class CreateEvent extends React.Component<Props, State> {
     );
   }
 }
+
+CreateEvent.propTypes = {};

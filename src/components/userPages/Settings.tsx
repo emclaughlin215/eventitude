@@ -1,15 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView, StyleSheet} from 'react-native';
 
-interface Props {}
-
-interface State {}
-
-export class Settings extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class Settings extends React.Component {
   render() {
     return (
       <>

@@ -3,19 +3,9 @@ import {View, TouchableWithoutFeedback} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {DropdownMenu} from './DropdownMenu';
 import styles from './styles';
+import PropTypes from 'prop-types';
 
-interface Props {
-  eventsToShow: PropTypes.str;
-  changeEventsFeedType: PropTypes.func;
-}
-
-interface State {}
-
-export class AppHeader extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class AppHeader extends React.Component {
   render() {
     return (
       <View style={styles.topIconsLayout}>
@@ -50,3 +40,8 @@ export class AppHeader extends React.Component<Props, State> {
     );
   }
 }
+
+AppHeader.propTypes = {
+  eventsToShow: PropTypes.str,
+  changeEventsFeedType: PropTypes.func,
+};

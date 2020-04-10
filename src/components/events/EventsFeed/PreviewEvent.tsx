@@ -1,26 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import {PropTypes} from 'prop-types';
+import {styles} from './styles';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 
-interface Props {
-  title: String;
-  date: String;
-  image: String;
-}
-
-interface State {}
-
-export class PreviewEvent extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class PreviewEvent extends React.Component {
   render() {
     return (
       <TouchableOpacity
@@ -42,27 +25,8 @@ export class PreviewEvent extends React.Component<Props, State> {
   }
 }
 
-const styles = StyleSheet.create({
-  preview: {
-    flexDirection: 'column',
-    marginTop: 40,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 15,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  date: {
-    fontSize: 15,
-    fontStyle: 'italic',
-  },
-  image: {
-    height: 512,
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-  },
-});
+PreviewEvent.propTypes = {
+  title: PropTypes.str,
+  date: PropTypes.str,
+  image: PropTypes.str,
+};

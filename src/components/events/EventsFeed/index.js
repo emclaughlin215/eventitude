@@ -3,7 +3,7 @@ import {EventsFeed} from './EventsFeed';
 
 const mapStateToProps = state => {
   return {
-    eventsToShow: state.EventsFeedReducer.eventsToShow,
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
   };
 };
 

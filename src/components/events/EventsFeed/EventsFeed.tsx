@@ -5,25 +5,13 @@ import styles from './styles';
 import {PreviewEvent} from './PreviewEvent';
 import {AppHeader} from './../../appHeader/AppHeader';
 
-interface Props {
-  pageTitle: PropTypes.str;
-  eventsToShow: PropTypes.str;
-  changeEventsFeedType: PropTypes.func;
-}
-
-interface State {}
-
-export class EventsFeed extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+export class EventsFeed extends React.Component {
   static navigationOptions: {
     header: null;
   };
 
   events = {
-    previous: [
+    past: [
       {
         title: 'New Years Eve',
         date: 'December 31st 2019',
@@ -52,18 +40,33 @@ export class EventsFeed extends React.Component<Props, State> {
   render() {
     return (
       <>
-        <AppHeader navigation={this.props.navigation} pageTitle="Past Events" />
+        <AppHeader
+          navigation={this.props.navigation}
+          pageTitle={
+            this.props.showUpcoming ? 'Upcoming Events' : 'Upcoming Events'
+          }
+        />
         <ScrollView>
           <View style={styles.eventsFeed}>
-            {this.events.eventstoShow.map(value => (
-              <PreviewEvent
-                navigation={this.props.navigation}
-                key={value.title + '_' + value.date}
-                title={value.title}
-                date={value.date}
-                image={value.image}
-              />
-            ))}
+            {this.props.showUpcoming
+              ? this.events.upcoming.map(value => (
+                  <PreviewEvent
+                    navigation={this.props.navigation}
+                    key={value.title + '_' + value.date}
+                    title={value.title}
+                    date={value.date}
+                    image={value.image}
+                  />
+                ))
+              : this.events.past.map(value => (
+                  <PreviewEvent
+                    navigation={this.props.navigation}
+                    key={value.title + '_' + value.date}
+                    title={value.title}
+                    date={value.date}
+                    image={value.image}
+                  />
+                ))}
           </View>
         </ScrollView>
         <View>
@@ -80,3 +83,9 @@ export class EventsFeed extends React.Component<Props, State> {
     );
   }
 }
+
+EventsFeed.propTypes = {
+  pageTitle: PropTypes.str,
+  eventsToShow: PropTypes.str,
+  changeEventsFeedType: PropTypes.func,
+};

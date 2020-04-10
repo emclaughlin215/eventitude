@@ -1,28 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Text from 'react-native';
 import {styles} from './styles';
-
 import Menu, {MenuItem} from 'react-native-material-menu';
-
-export interface Props {
-  menuItems: String[];
-}
+import {updateEventsFeedType} from '../../actions/EventsFeedAction';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 export class DropdownMenu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   _menu = null;
-
-  displayToNavScreen = {
-    'Upcoming Events': 'upcoming',
-    'Past Events': 'past',
-  };
-  navScreenToDisplay = {
-    upcoming: 'Upcoming Events',
-    past: 'Past Events',
-  };
 
   setMenuRef = ref => {
     this._menu = ref;
@@ -36,9 +22,9 @@ export class DropdownMenu extends React.Component {
     this._menu.show();
   };
 
-  changePeriod = v => {
+  toggleEventsToShow = () => {
     this._menu.hide();
-    this.props.navigation.navigate(this.displayToNavScreen[v]);
+    updateEventsFeedType();
   };
 
   render() {
@@ -47,11 +33,11 @@ export class DropdownMenu extends React.Component {
         ref={this.setMenuRef}
         button={
           <Text onPress={this.showMenu} style={styles.headerStyle}>
-            {this.navScreenToDisplay[this.props.navigation.state.routeName]}
+            {this.props.showUpcoming ? 'Upcoming Events' : 'Past Events'}
           </Text>
         }>
         {this.props.menuItems.map(item => (
-          <MenuItem key={item} onPress={this.changePeriod.bind(this, item)}>
+          <MenuItem key={item} onPress={this.toggleEventsToShow()}>
             <Text>{item}</Text>
           </MenuItem>
         ))}
@@ -59,3 +45,27 @@ export class DropdownMenu extends React.Component {
     );
   }
 }
+
+DropdownMenu.propTypes = {
+  menuItems: PropTypes.arrayOf(PropTypes.str),
+};
+
+const mapStateToProps = state => {
+  return {
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateEventsFeedType,
+    },
+    dispatch,
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DropdownMenu);

@@ -1,13 +1,9 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import MapView from 'react-native-maps';
-import defaultMapStyle from './MapStyles';
+import {styles, defaultMapStyle} from './MapStyles';
 
 export class Mapping extends React.Component {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     var mapStyle = defaultMapStyle;
     return (
@@ -27,17 +23,3 @@ export class Mapping extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    alignItems: 'center',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});

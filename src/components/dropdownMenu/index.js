@@ -1,8 +1,10 @@
-import {connect} from 'react-redux';
-import {DropdownMenu} from './DropdownMenu';
+// import {connect} from 'react-redux';
+// import {DropdownMenu} from './DropdownMenu';
 
-const mapStateToProps = state => {
-  return {};
-};
+// const StateToProps = state => {
+//   return {
+//     eventsToShow: state.EventsFeedReducer.eventsToShow,
+//   };
+// };
 
-export default connect(mapStateToProps)(DropdownMenu);
+// export default connect(StateToProps)(DropdownMenu);
