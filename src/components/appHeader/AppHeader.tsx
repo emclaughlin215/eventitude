@@ -1,9 +1,17 @@
 import React from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {View, TouchableWithoutFeedback} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {DropdownMenu} from './DropdownMenu';
+import styles from './styles';
 
-export class AppHeader extends React.Component {
+interface Props {
+  eventsToShow: PropTypes.str;
+  changeEventsFeedType: PropTypes.func;
+}
+
+interface State {}
+
+export class AppHeader extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }
@@ -42,20 +50,3 @@ export class AppHeader extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  topIconsLayout: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 30,
-    paddingRight: 30,
-    paddingBottom: 20,
-  },
-  topLeftIcons: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  topIcon: {
-    paddingLeft: 20,
-  },
-});

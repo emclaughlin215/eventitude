@@ -10,7 +10,11 @@ import {
 import {PreviewEvent} from './PreviewEvent';
 import {AppHeader} from './../AppHeader';
 
-export class UpcomingEventsFeed extends React.Component {
+interface Props {}
+
+interface State {}
+
+export class UpcomingEventsFeed extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }

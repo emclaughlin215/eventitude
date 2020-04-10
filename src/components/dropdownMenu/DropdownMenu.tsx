@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import Text from 'react-native';
+import {styles} from './styles';
 
 import Menu, {MenuItem} from 'react-native-material-menu';
 
@@ -58,13 +59,3 @@ export class DropdownMenu extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 25,
-  },
-  menuProvider: {
-    marginBottom: 10,
-    marginTop: 10,
-  },
-});
