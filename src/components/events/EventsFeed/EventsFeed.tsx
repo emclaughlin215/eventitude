@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
-  Text,
   ScrollView,
   StyleSheet,
   Dimensions,
@@ -19,6 +18,29 @@ export class EventsFeed extends React.Component {
     header: null;
   };
 
+  getFilteredEvents = reverse => {
+    return this.props.events
+      .filter(
+        event =>
+          reverse * (moment.now() - moment(event.date, 'DD-MM-YYYY')) <= 0,
+      )
+      .sort(function(a, b) {
+        return (
+          reverse *
+          (moment(a.date, 'DD-MM-YYYY') - moment(b.date, 'DD-MM-YYYY'))
+        );
+      })
+      .map(value => (
+        <PreviewEvent
+          navigation={this.props.navigation}
+          key={value.title + '_' + value.date}
+          title={value.title}
+          date={value.date}
+          image={value.image}
+        />
+      ));
+  };
+
   render() {
     return (
       <>
@@ -26,28 +48,8 @@ export class EventsFeed extends React.Component {
         <ScrollView>
           <View style={styles.eventsFeed}>
             {this.props.showUpcoming
-              ? this.props.events
-                  .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') <= 0)
-                  .map(value => (
-                    <PreviewEvent
-                      navigation={this.props.navigation}
-                      key={value.title + '_' + value.date}
-                      title={value.title}
-                      date={value.date}
-                      image={value.image}
-                    />
-                  ))
-              : this.props.events
-                  .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') > 0)
-                  .map(value => (
-                    <PreviewEvent
-                      navigation={this.props.navigation}
-                      key={value.title + '_' + value.date}
-                      title={value.title}
-                      date={value.date}
-                      image={value.image}
-                    />
-                  ))}
+              ? this.getFilteredEvents(1)
+              : this.getFilteredEvents(-1)}
           </View>
         </ScrollView>
         <View>
@@ -70,7 +72,7 @@ EventsFeed.propTypes = {
     pageTitle: PropTypes.str,
   }),
   showUpcoming: PropTypes.bool,
-  events: PropTypes.arr
+  events: PropTypes.arr,
 };
 
 export const styles = StyleSheet.create({

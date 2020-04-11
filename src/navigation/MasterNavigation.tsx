@@ -2,7 +2,7 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import {Profile} from './../components/userPages/Profile';
+import Profile from './../components/userPages/Profile';
 import {Settings} from './../components/userPages/Settings';
 
 import {Mapping} from './../components/maps/Mapping';
