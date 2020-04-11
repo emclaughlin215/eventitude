@@ -7,7 +7,7 @@ const defaultState = {
   },
   setting: {
     darkMode: false,
-  }
+  },
 };
 
 export const UserReducer = (state = defaultState, action) => {
