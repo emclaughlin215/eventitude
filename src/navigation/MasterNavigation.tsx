@@ -7,7 +7,7 @@ import {Settings} from './../components/userPages/Settings';
 
 import {Mapping} from './../components/maps/Mapping';
 
-import {Event} from './../components/events/Event/Event';
+import Event from './../components/events/Event/Event';
 import {CreateEvent} from './../components/events/CreateEvent/CreateEvent';
 import EventsFeed from './../components/events/EventsFeed/EventsFeed';
 
@@ -54,20 +54,5 @@ const EventsNavigation = createStackNavigator(
     initialRouteKey: 'upcoming',
   },
 );
-
-// const PeriodNavigation = createSwitchNavigator({
-//   past: {
-//     screen: EventsNavigation,
-//     navigationOptions: {
-//       header: false,
-//     },
-//   },
-//   upcoming: {
-//     screen: EventsNavigation,
-//     navigationOptions: {
-//       header: false,
-//     },
-//   },
-// });
 
 export default createAppContainer(EventsNavigation);

@@ -9,20 +9,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {goToEvent} from '../../actions/EventAction';
+import {goToEvent} from '../../../actions/EventsFeedAction';
 import {bindActionCreators} from 'redux';
 
 export class PreviewEvent extends React.Component {
-  goToEvent = () => {
+  goToEvent = (date, title, image) => {
     this.props.navigation.navigate('event');
-    this.props.goToEvent();
+    this.props.goToEvent(date, title, image);
   };
 
   render() {
     return (
       <TouchableOpacity
         style={styles.preview}
-        onPress={() => this.props.navigation.navigate('event')}>
+        onPress={() =>
+          this.goToEvent(this.props.date, this.props.title, this.props.image)
+        }>
         <View style={styles.header}>
           <Text style={styles.title}>{this.props.title}</Text>
           <Text style={styles.date}>{this.props.date}</Text>
@@ -34,11 +36,9 @@ export class PreviewEvent extends React.Component {
 }
 
 PreviewEvent.propTypes = {
-  navigation: PropTypes.shape({
-    date: PropTypes.str,
-    title: PropTypes.str,
-    image: PropTypes.str,
-  }),
+  date: PropTypes.str,
+  title: PropTypes.str,
+  image: PropTypes.str,
 };
 
 const styles = StyleSheet.create({
@@ -85,12 +85,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    showUpcoming: state.EventsFeedReducer.showUpcoming,
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
@@ -101,6 +95,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(PreviewEvent);

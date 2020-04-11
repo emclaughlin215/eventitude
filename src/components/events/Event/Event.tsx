@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import {PropTypes} from 'prop-types';
+import {connect} from 'react-redux';
 
 export class Event extends React.Component {
   render() {
@@ -58,3 +59,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    state: state.EventsFeedReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Event);

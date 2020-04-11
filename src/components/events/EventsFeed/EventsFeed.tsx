@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
-import {PreviewEvent} from './PreviewEvent';
+import PreviewEvent from './PreviewEvent';
 import AppHeader from './../../appHeader/AppHeader';
 import moment from 'moment';
 
@@ -19,29 +19,6 @@ export class EventsFeed extends React.Component {
     header: null;
   };
 
-  events = [
-    {
-      title: 'New Years Eve',
-      date: '31-12-2019',
-      image: require('../../../resources/images/NewYear.jpg'),
-    },
-    {
-      title: 'lauras Birthday',
-      date: '29-03-2019',
-      image: require('../../../resources/images/MyBirthday.jpg'),
-    },
-    {
-      title: 'New Years Eve',
-      date: '31-12-2020',
-      image: require('../../../resources/images/eventImage1.jpg'),
-    },
-    {
-      title: 'My Birthday',
-      date: '01-09-2020',
-      image: require('../../../resources/images/eventImage1.jpg'),
-    },
-  ];
-
   render() {
     return (
       <>
@@ -49,7 +26,7 @@ export class EventsFeed extends React.Component {
         <ScrollView>
           <View style={styles.eventsFeed}>
             {this.props.showUpcoming
-              ? this.events
+              ? this.props.events
                   .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') <= 0)
                   .map(value => (
                     <PreviewEvent
@@ -60,7 +37,7 @@ export class EventsFeed extends React.Component {
                       image={value.image}
                     />
                   ))
-              : this.events
+              : this.props.events
                   .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') > 0)
                   .map(value => (
                     <PreviewEvent
@@ -92,7 +69,8 @@ EventsFeed.propTypes = {
   navigation: PropTypes.shape({
     pageTitle: PropTypes.str,
   }),
-  showUpcoming: PropTypes.bool
+  showUpcoming: PropTypes.bool,
+  events: PropTypes.arr
 };
 
 export const styles = StyleSheet.create({
@@ -142,6 +120,7 @@ export const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     showUpcoming: state.EventsFeedReducer.showUpcoming,
+    events: state.EventsReducer.events,
   };
 };
 
