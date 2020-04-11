@@ -8,19 +8,21 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {goToEvent} from '../../actions/EventAction';
+import {bindActionCreators} from 'redux';
 
 export class PreviewEvent extends React.Component {
+  goToEvent = () => {
+    this.props.navigation.navigate('event');
+    this.props.goToEvent();
+  };
+
   render() {
     return (
       <TouchableOpacity
         style={styles.preview}
-        onPress={() =>
-          this.props.navigation.navigate('event', {
-            eventTitle: this.props.title,
-            image: this.props.image,
-            date: this.props.date,
-          })
-        }>
+        onPress={() => this.props.navigation.navigate('event')}>
         <View style={styles.header}>
           <Text style={styles.title}>{this.props.title}</Text>
           <Text style={styles.date}>{this.props.date}</Text>
@@ -82,3 +84,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      goToEvent,
+    },
+    dispatch,
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PreviewEvent);

@@ -1,7 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   View,
+  Text,
   ScrollView,
   StyleSheet,
   Dimensions,
@@ -9,39 +11,36 @@ import {
   Image,
 } from 'react-native';
 import {PreviewEvent} from './PreviewEvent';
-import {AppHeader} from './../../appHeader/AppHeader';
+import AppHeader from './../../appHeader/AppHeader';
+import moment from 'moment';
 
 export class EventsFeed extends React.Component {
   static navigationOptions: {
     header: null;
   };
 
-  events = {
-    past: [
-      {
-        title: 'New Years Eve',
-        date: 'December 31st 2019',
-        image: require('../../../resources/images/NewYear.jpg'),
-      },
-      {
-        title: 'lauras Birthday',
-        date: 'September 1st 2019',
-        image: require('../../../resources/images/MyBirthday.jpg'),
-      },
-    ],
-    upcoming: [
-      {
-        title: 'New Years Eve',
-        date: 'December 31st 2020',
-        image: require('../../../resources/images/eventImage1.jpg'),
-      },
-      {
-        title: 'My Birthday',
-        date: 'September 1st 2020',
-        image: require('../../../resources/images/eventImage1.jpg'),
-      },
-    ],
-  };
+  events = [
+    {
+      title: 'New Years Eve',
+      date: '31-12-2019',
+      image: require('../../../resources/images/NewYear.jpg'),
+    },
+    {
+      title: 'lauras Birthday',
+      date: '29-03-2019',
+      image: require('../../../resources/images/MyBirthday.jpg'),
+    },
+    {
+      title: 'New Years Eve',
+      date: '31-12-2020',
+      image: require('../../../resources/images/eventImage1.jpg'),
+    },
+    {
+      title: 'My Birthday',
+      date: '01-09-2020',
+      image: require('../../../resources/images/eventImage1.jpg'),
+    },
+  ];
 
   render() {
     return (
@@ -50,24 +49,28 @@ export class EventsFeed extends React.Component {
         <ScrollView>
           <View style={styles.eventsFeed}>
             {this.props.showUpcoming
-              ? this.events.upcoming.map(value => (
-                  <PreviewEvent
-                    navigation={this.props.navigation}
-                    key={value.title + '_' + value.date}
-                    title={value.title}
-                    date={value.date}
-                    image={value.image}
-                  />
-                ))
-              : this.events.past.map(value => (
-                  <PreviewEvent
-                    navigation={this.props.navigation}
-                    key={value.title + '_' + value.date}
-                    title={value.title}
-                    date={value.date}
-                    image={value.image}
-                  />
-                ))}
+              ? this.events
+                  .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') <= 0)
+                  .map(value => (
+                    <PreviewEvent
+                      navigation={this.props.navigation}
+                      key={value.title + '_' + value.date}
+                      title={value.title}
+                      date={value.date}
+                      image={value.image}
+                    />
+                  ))
+              : this.events
+                  .filter(event => moment.now() - moment(event.date, 'DD-MM-YYYY') > 0)
+                  .map(value => (
+                    <PreviewEvent
+                      navigation={this.props.navigation}
+                      key={value.title + '_' + value.date}
+                      title={value.title}
+                      date={value.date}
+                      image={value.image}
+                    />
+                  ))}
           </View>
         </ScrollView>
         <View>
@@ -89,6 +92,7 @@ EventsFeed.propTypes = {
   navigation: PropTypes.shape({
     pageTitle: PropTypes.str,
   }),
+  showUpcoming: PropTypes.bool
 };
 
 export const styles = StyleSheet.create({
@@ -134,3 +138,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
+  };
+};
+
+export default connect(mapStateToProps)(EventsFeed);

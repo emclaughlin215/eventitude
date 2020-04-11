@@ -1,4 +1,4 @@
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -9,7 +9,7 @@ import {Mapping} from './../components/maps/Mapping';
 
 import {Event} from './../components/events/Event/Event';
 import {CreateEvent} from './../components/events/CreateEvent/CreateEvent';
-import {EventsFeed} from './../components/events/EventsFeed/EventsFeed';
+import EventsFeed from './../components/events/EventsFeed/EventsFeed';
 
 const EventNavigation = createMaterialTopTabNavigator({
   details: Event,
@@ -55,19 +55,19 @@ const EventsNavigation = createStackNavigator(
   },
 );
 
-const PeriodNavigation = createSwitchNavigator({
-  past: {
-    screen: EventsNavigation,
-    navigationOptions: {
-      header: false,
-    },
-  },
-  upcoming: {
-    screen: EventsNavigation,
-    navigationOptions: {
-      header: false,
-    },
-  },
-});
+// const PeriodNavigation = createSwitchNavigator({
+//   past: {
+//     screen: EventsNavigation,
+//     navigationOptions: {
+//       header: false,
+//     },
+//   },
+//   upcoming: {
+//     screen: EventsNavigation,
+//     navigationOptions: {
+//       header: false,
+//     },
+//   },
+// });
 
-export default createAppContainer(PeriodNavigation);
+export default createAppContainer(EventsNavigation);

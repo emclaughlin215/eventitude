@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Picker, TouchableWithoutFeedback} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {updateEventsFeedType} from '../../actions/EventsFeedAction';
+import {toggleEventsFeedType} from '../../actions/EventsFeedAction';
 import {bindActionCreators} from 'redux';
 import {PropTypes} from 'prop-types';
 
@@ -33,13 +33,11 @@ export class AppHeader extends React.Component {
         </View>
         <View>
           <Picker
-            selectedValue={
-              this.props.showUpcoming ? 'Upcoming Events' : 'Past Events'
-            }
+            selectedValue={this.props.showUpcoming ? 'upcoming' : 'past'}
             style={styles.DropdownMenu}
-            onValueChange={() => updateEventsFeedType()}>
-            <Picker.Item label="Past Events" />
-            <Picker.Item label="Upcoming Events" />
+            onValueChange={() => this.props.toggleEventsFeedType()}>
+            <Picker.Item label="Upcoming Events" value="upcoming" />
+            <Picker.Item label="Past Events" value="past" />
           </Picker>
         </View>
       </View>
@@ -49,7 +47,7 @@ export class AppHeader extends React.Component {
 
 AppHeader.propTypes = {
   showUpcoming: PropTypes.bool,
-  updateEventsFeedType: PropTypes.func,
+  toggleEventsFeedType: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
@@ -82,7 +80,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateEventsFeedType,
+      toggleEventsFeedType,
     },
     dispatch,
   );

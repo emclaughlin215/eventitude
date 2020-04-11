@@ -1,14 +1,13 @@
-const defaultState = {showUpcoming: false};
+const defaultState = {showUpcoming: true};
 
 export const EventsFeedReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'UPDATE_EVENTS_FEED_TYPE':
-      const {showingUpcoming} = state;
-      const newState = {showUpcoming: !showingUpcoming};
-      return newState;
+      return {
+        ...state,
+        showUpcoming: !state.showUpcoming,
+      };
     default:
       return state;
   }
 };
-
-export default EventsFeedReducer;
