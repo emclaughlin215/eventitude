@@ -4,6 +4,10 @@
 
 ## TO DO
 
+### Admin
+
+ - [ ] Clean repo with .gitignore 
+
 ### UI
 
 - [ ] Add global styling

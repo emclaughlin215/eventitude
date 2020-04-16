@@ -1,36 +1,39 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  TouchableWithoutFeedback,
-  Image,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, Animated, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
 import PreviewEvent from './PreviewEvent';
 import AppHeader from './../../appHeader/AppHeader';
 import moment from 'moment';
+import { Colors } from '@blueprintjs/core';
+import { Icon } from 'react-native-elements';
+import CreateEvent from './../CreateEvent/index';
 
 export class EventsFeed extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      createEvent: false,
+    };
+  }
+
   static navigationOptions: {
     header: null;
   };
 
-  getFilteredEvents = reverse => {
+  toggleCreateEvent = () => {
+    this.setState({
+      createEvent: !this.state.createEvent,
+    });
+  };
+
+  getFilteredEvents = (reverse) => {
     return this.props.events
-      .filter(
-        event =>
-          reverse * (moment.now() - moment(event.date, 'DD-MM-YYYY')) <= 0,
-      )
+      .filter((event) => reverse * (moment.now() - moment(event.date, 'DD-MM-YYYY')) <= 0)
       .sort(function(a, b) {
-        return (
-          reverse *
-          (moment(a.date, 'DD-MM-YYYY') - moment(b.date, 'DD-MM-YYYY'))
-        );
+        return reverse * (moment(a.date, 'DD-MM-YYYY') - moment(b.date, 'DD-MM-YYYY'));
       })
-      .map(value => (
+      .map((value) => (
         <PreviewEvent
           navigation={this.props.navigation}
           key={value.title + '_' + value.date}
@@ -47,20 +50,32 @@ export class EventsFeed extends React.Component {
         <AppHeader navigation={this.props.navigation} />
         <ScrollView>
           <View style={styles.eventsFeed}>
-            {this.props.showUpcoming
-              ? this.getFilteredEvents(1)
-              : this.getFilteredEvents(-1)}
+            {this.props.showUpcoming ? this.getFilteredEvents(1) : this.getFilteredEvents(-1)}
           </View>
         </ScrollView>
-        <View>
-          <TouchableWithoutFeedback
-            style={styles.TouchableOpacityStyle}
-            onPress={() => this.props.navigation.navigate('createEvent')}>
-            <Image
-              source={require('../../../resources/images/newEventIcon.png')}
-              style={styles.FloatingButtonStyle}
-            />
+        <View style={[styles.overlay, { height: this.state.createEvent ? 700 : 50 }]}>
+          <TouchableWithoutFeedback onPress={() => this.toggleCreateEvent()} style={styles.expandButton}>
+            <View transparent={true} style={styles.expandBar}>
+              <Icon
+                name={this.state.createEvent ? 'sort-down' : 'sort-up'}
+                style={styles.arrowStyle}
+                type="font-awesome"
+                iconStyle="solid"
+                size={25}
+              />
+              <Text style={styles.title}> Create Event </Text>
+              <Icon
+                name={this.state.createEvent ? 'sort-down' : 'sort-up'}
+                style={styles.arrowStyle}
+                type="font-awesome"
+                iconStyle="solid"
+                size={25}
+              />
+            </View>
           </TouchableWithoutFeedback>
+          <View style={[styles.newEventArea, { height: this.state.createEvent ? 650 : 0 }]}>
+            <CreateEvent />
+          </View>
         </View>
       </>
     );
@@ -80,25 +95,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 30,
-    bottom: 30,
-  },
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-    borderRadius: 80,
-  },
-  preview: {
-    flexDirection: 'column',
-    marginTop: 40,
-  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -107,6 +103,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    padding: 10,
   },
   date: {
     fontSize: 15,
@@ -117,9 +114,35 @@ export const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     alignItems: 'center',
   },
+  overlay: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: Colors.WHITE,
+    width: Dimensions.get('window').width,
+  },
+  expandButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  expandBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 50,
+    width: Dimensions.get('window').width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+  },
+  newEventArea: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    alignItems: 'center',
+  },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     showUpcoming: state.EventsFeedReducer.showUpcoming,
     events: state.EventsReducer.events,

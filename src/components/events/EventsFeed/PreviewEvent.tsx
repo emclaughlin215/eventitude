@@ -1,16 +1,10 @@
 import React from 'react';
-import {PropTypes} from 'prop-types';
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import {connect} from 'react-redux';
-import {goToEvent} from '../../../actions/EventsFeedAction';
-import {bindActionCreators} from 'redux';
+import { PropTypes } from 'prop-types';
+import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { goToEvent } from '../../../actions/EventsFeedAction';
+import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
 export class PreviewEvent extends React.Component {
   goToEvent = (date, title, image) => {
@@ -22,12 +16,10 @@ export class PreviewEvent extends React.Component {
     return (
       <TouchableOpacity
         style={styles.preview}
-        onPress={() =>
-          this.goToEvent(this.props.date, this.props.title, this.props.image)
-        }>
+        onPress={() => this.goToEvent(this.props.date, this.props.title, this.props.image)}>
         <View style={styles.header}>
           <Text style={styles.title}>{this.props.title}</Text>
-          <Text style={styles.date}>{this.props.date}</Text>
+          <Text style={styles.date}>{moment(this.props.date, 'DD-MM-YYYY').format('Ha Do MMM YYYY')}</Text>
         </View>
         <Image source={this.props.image} style={styles.image} />
       </TouchableOpacity>
@@ -85,7 +77,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       goToEvent,

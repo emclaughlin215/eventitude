@@ -1,34 +1,21 @@
 import React from 'react';
-import {View, StyleSheet, Picker, TouchableWithoutFeedback} from 'react-native';
-import {Icon} from 'react-native-elements';
-import {connect} from 'react-redux';
-import {toggleEventsFeedType} from '../../actions/EventsFeedAction';
-import {bindActionCreators} from 'redux';
-import {PropTypes} from 'prop-types';
+import { View, StyleSheet, Picker, TouchableWithoutFeedback } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { toggleEventsFeedType } from '../../actions/EventsFeedAction';
+import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 
 export class AppHeader extends React.Component {
   render() {
     return (
       <View style={styles.topIconsLayout}>
         <View style={styles.topLeftIcons}>
-          <TouchableWithoutFeedback
-            onPress={() => this.props.navigation.navigate('profile')}>
-            <Icon
-              name="user"
-              type="font-awesome"
-              size={40}
-              iconStyle="regular"
-              containerStyle={styles.topIcon}
-            />
+          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('profile')}>
+            <Icon name="user" type="font-awesome" size={40} iconStyle="regular" containerStyle={styles.topIcon} />
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => this.props.navigation.navigate('settings')}>
-            <Icon
-              name="cogs"
-              size={40}
-              type="font-awesome"
-              containerStyle={styles.topIcon}
-            />
+          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('settings')}>
+            <Icon name="cogs" size={40} type="font-awesome" containerStyle={styles.topIcon} />
           </TouchableWithoutFeedback>
         </View>
         <View>
@@ -71,13 +58,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     showUpcoming: state.EventsFeedReducer.showUpcoming,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleEventsFeedType,

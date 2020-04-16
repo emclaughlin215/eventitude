@@ -1,19 +1,25 @@
 import React from 'react';
-import {
-  Text,
-  Dimensions,
-  StyleSheet,
-  View,
-  ScrollView,
-  Image,
-} from 'react-native';
-import {PropTypes} from 'prop-types';
-import {connect} from 'react-redux';
+import { Text, Dimensions, StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 
 export class Event extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+    };
+  }
+
+  componentDidMount() {
+    // eslint-disable-next-line react/no-did-mount-set-state
+    this.setState({ loading: false });
+  }
+
   render() {
     return (
       <View>
+        <ActivityIndicator animating={this.state.loading} size="large" color="#0000ff" />
         <ScrollView>
           <View style={styles.scrollView}>
             <Text style={styles.textHeader}>{this.props.state.title}</Text>
@@ -60,7 +66,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     state: state.EventsFeedReducer,
   };
