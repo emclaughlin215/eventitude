@@ -1,7 +1,7 @@
-import {connect} from 'react-redux';
-import {CreateEvent} from './CreateEvent';
+import { connect } from 'react-redux';
+import { CreateEvent } from './CreateEvent';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 

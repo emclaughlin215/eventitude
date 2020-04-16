@@ -1,3 +1,5 @@
+import { constants } from './../constants';
+
 const defaultState = {
   showUpcoming: true,
   date: null,
@@ -7,14 +9,14 @@ const defaultState = {
 
 export const EventsFeedReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'UPDATE_EVENTS_FEED_TYPE':
+    case constants.updateEventsFeedType:
       return {
         ...state,
         showUpcoming: !state.showUpcoming,
       };
     default:
       return state;
-    case 'GO_TO_EVENT':
+    case constants.goToEvent:
       return {
         ...state,
         date: action.date,

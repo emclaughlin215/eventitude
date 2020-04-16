@@ -1,12 +1,14 @@
+import { constants } from './../constants';
+
 export const toggleEventsFeedType = () => {
   return {
-    type: 'UPDATE_EVENTS_FEED_TYPE',
+    type: constants.updateEventsFeedType,
   };
 };
 
 export const goToEvent = (date, title, image) => {
   return {
-    type: 'GO_TO_EVENT',
+    type: constants.goToEvent,
     date: date,
     title: title,
     image: image,

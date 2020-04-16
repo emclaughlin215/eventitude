@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Picker, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Picker, Text, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { toggleEventsFeedType } from '../../actions/EventsFeedAction';
 import { bindActionCreators } from 'redux';
 import { PropTypes } from 'prop-types';
+import { Colors } from '@blueprintjs/core';
 
 export class AppHeader extends React.Component {
   render() {
@@ -17,14 +18,18 @@ export class AppHeader extends React.Component {
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('settings')}>
             <Icon name="cogs" size={40} type="font-awesome" containerStyle={styles.topIcon} />
           </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback>
+            <Icon name="bell" size={40} type="font-awesome" containerStyle={styles.topIcon} />
+          </TouchableWithoutFeedback>
+          <Text style={styles.notifications}> 5 </Text>
         </View>
         <View>
           <Picker
             selectedValue={this.props.showUpcoming ? 'upcoming' : 'past'}
             style={styles.DropdownMenu}
             onValueChange={() => this.props.toggleEventsFeedType()}>
-            <Picker.Item label="Upcoming Events" value="upcoming" />
-            <Picker.Item label="Past Events" value="past" />
+            <Picker.Item label="Upcoming" value="upcoming" />
+            <Picker.Item label="Past" value="past" />
           </Picker>
         </View>
       </View>
@@ -52,9 +57,18 @@ const styles = StyleSheet.create({
   topIcon: {
     paddingLeft: 20,
   },
+  notifications: {
+    fontSize: 16,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    textShadowRadius: 5,
+    textShadowColor: Colors.RED4,
+  },
   DropdownMenu: {
+    fontWeight: 'bold',
     height: 50,
-    width: 200,
+    width: 140,
+    alignItems: 'center',
   },
 });
 

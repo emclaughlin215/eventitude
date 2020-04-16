@@ -2,18 +2,17 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Colors } from '@blueprintjs/core';
-import { Text, View, StyleSheet, Alert, Modal, TouchableHighlight, Image, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Alert, Modal, TouchableHighlight, Dimensions } from 'react-native';
 import moment from 'moment';
 import { updateDob, updateEmail, updateName, updatePhoneNumber } from './../../actions/UserAction';
-import ImagePicker from 'react-native-image-crop-picker';
 import { InputLine, DisplayKeyValues } from './../../utils/keyValueComponents';
+import { ImageSelector } from './../../utils/imageComponents';
 
 export class Profile extends React.Component {
   constructor() {
     super();
     this.state = {
       editMode: false,
-      editPhotoMode: false,
       date: null,
       firstName: null,
       surname: null,
@@ -35,39 +34,6 @@ export class Profile extends React.Component {
 
   toggleEdit = () => {
     this.setState({ editMode: !this.state.editMode });
-  };
-
-  toggleEditPhoto = () => {
-    this.setState({ editPhotoMode: !this.state.editPhotoMode });
-  };
-
-  selectFromPhotos = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      includeExif: true,
-      cropping: true,
-    }).then((image) => {
-      console.log(image);
-    });
-  };
-
-  selectFromCamera = () => {
-    ImagePicker.openCamera({
-      cropping: true,
-      width: 300,
-      height: 400,
-      includeExif: true,
-      mediaType: 'photo',
-    })
-      .then((image) => {
-        console.log('received image', image);
-      })
-      .catch((e) => alert(e));
-  };
-
-  renderImage = (image) => {
-    return <Image style={styles.image} source={image} />;
   };
 
   handleEditClose = () => {
@@ -118,44 +84,7 @@ export class Profile extends React.Component {
     ];
     return (
       <View styles={styles.page}>
-        <View style={styles.imageArea}>
-          <TouchableHighlight
-            onPress={() => {
-              this.toggleEditPhoto();
-            }}>
-            {this.props.state.profile.image ? this.renderImage(this.props.state.profile.image) : null}
-          </TouchableHighlight>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.editPhotoMode}
-            onRequestClose={() => {
-              Alert.alert('Saved changes.');
-            }}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.selectFromPhotos();
-                  }}>
-                  <Text style={styles.propertyText}> Select From Photos </Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.selectFromCamera();
-                  }}>
-                  <Text style={styles.propertyText}> Select From Camera </Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.toggleEditPhoto();
-                  }}>
-                  <Text style={styles.propertyText}> Close </Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
-        </View>
+        <ImageSelector image={this.props.state.profile.image} size="small" shape="round" />
         <Modal
           animationType="slide"
           transparent={true}
@@ -206,6 +135,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: Colors.WHITE,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    paddingTop: 50,
+    paddingBottom: 50,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 20,
+    flexDirection: 'column',
+    height: Dimensions.get('window').height / 1.5,
+    elevation: 5,
+    backgroundColor: Colors.WHITE,
+  },
   keyValue: {
     backgroundColor: Colors.WHITE,
     padding: 10,
@@ -224,24 +171,6 @@ const styles = StyleSheet.create({
   imageArea: {
     height: Dimensions.get('window').width / 2,
     width: Dimensions.get('window').width,
-    backgroundColor: Colors.WHITE,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    paddingTop: 50,
-    paddingBottom: 50,
-    paddingRight: 10,
-    paddingLeft: 10,
-    borderRadius: 20,
-    flexDirection: 'column',
-    height: Dimensions.get('window').height / 1.5,
-    elevation: 5,
     backgroundColor: Colors.WHITE,
   },
   editProfileButtonContainer: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { View, ScrollView, StyleSheet, Animated, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
 import PreviewEvent from './PreviewEvent';
 import AppHeader from './../../appHeader/AppHeader';
 import moment from 'moment';
@@ -53,11 +53,11 @@ export class EventsFeed extends React.Component {
             {this.props.showUpcoming ? this.getFilteredEvents(1) : this.getFilteredEvents(-1)}
           </View>
         </ScrollView>
-        <View style={[styles.overlay, { height: this.state.createEvent ? 700 : 50 }]}>
+        <View style={[styles.overlay, { height: this.state.createEvent ? 600 : 50 }]}>
           <TouchableWithoutFeedback onPress={() => this.toggleCreateEvent()} style={styles.expandButton}>
             <View transparent={true} style={styles.expandBar}>
               <Icon
-                name={this.state.createEvent ? 'sort-down' : 'sort-up'}
+                name={this.state.createEvent ? 'angle-down' : 'angle-up'}
                 style={styles.arrowStyle}
                 type="font-awesome"
                 iconStyle="solid"
@@ -65,7 +65,7 @@ export class EventsFeed extends React.Component {
               />
               <Text style={styles.title}> Create Event </Text>
               <Icon
-                name={this.state.createEvent ? 'sort-down' : 'sort-up'}
+                name={this.state.createEvent ? 'angle-down' : 'angle-up'}
                 style={styles.arrowStyle}
                 type="font-awesome"
                 iconStyle="solid"
@@ -73,8 +73,8 @@ export class EventsFeed extends React.Component {
               />
             </View>
           </TouchableWithoutFeedback>
-          <View style={[styles.newEventArea, { height: this.state.createEvent ? 650 : 0 }]}>
-            <CreateEvent />
+          <View style={[styles.newEventArea, { height: this.state.createEvent ? 550 : 0 }]}>
+            <CreateEvent cancelCallback={() => this.toggleCreateEvent()} />
           </View>
         </View>
       </>
@@ -125,6 +125,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    opacity: 0,
   },
   expandBar: {
     display: 'flex',

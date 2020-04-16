@@ -13,7 +13,6 @@ import Settings from './../components/userPages/Settings';
 import { Mapping } from './../components/maps/Mapping';
 
 import Event from './../components/events/Event/Event';
-import { CreateEvent } from './../components/events/CreateEvent/CreateEvent';
 import EventsFeed from './../components/events/EventsFeed/EventsFeed';
 
 const EventNavigation = createMaterialTopTabNavigator(
@@ -118,13 +117,6 @@ const EventsNavigation = createStackNavigator(
     },
     event: {
       screen: EventNavigation,
-    },
-    createEvent: {
-      screen: CreateEvent,
-      navigationOptions: {
-        title: 'Create Event',
-        gestureEnabled: true,
-      },
     },
     profile: {
       screen: Profile,

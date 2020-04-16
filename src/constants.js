@@ -17,4 +17,10 @@ export const constants = {
   // Events
   goToEvent: 'GO_TO_EVENT',
   updateEventsFeedType: 'UPDATE_EVENTS_FEED_TYPE',
+
+  // Create Event
+  addTitle: 'ADD_TITLE',
+  addLocation: 'ADD_LOCATION',
+  addDateTime: 'ADD_DATE_TIME',
+  addDescription: 'ADD_DESCRIPTION',
 };

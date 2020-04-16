@@ -27,7 +27,7 @@
   - [ ] Spotify Tab
 - [ ] Event Feed
   - [ ] Going/Not going/Maybe
-  - [ ] New invites
+  - [ ] Event invitations / New notifications
 - [ ] User
   - [ ] Profile
     - [ ] Authorise Spotify
@@ -46,7 +46,9 @@
   - [ ] Populate redux store with datebase values
     - [ ] User profile (cache locally?)
     - [ ] User settings (cache locally?)
-  - [ ] Get events for the user 
+  - [ ] Get events for the user
+  - [ ] Post changes to database
+  - [ ] Refresh data
 
  - #### Database
   - [ ] Events

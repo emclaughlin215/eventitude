@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   },
   preview: {
     flexDirection: 'column',
-    marginTop: 40,
+    marginBottom: 30,
+    elevation: 10,
   },
   header: {
     flexDirection: 'row',
