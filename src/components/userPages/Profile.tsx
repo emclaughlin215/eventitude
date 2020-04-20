@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Colors } from '@blueprintjs/core';
-import { Text, View, StyleSheet, Alert, Modal, TouchableHighlight, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Modal, TouchableHighlight, Dimensions } from 'react-native';
 import moment from 'moment';
 import { updateDob, updateEmail, updateName, updatePhoneNumber } from './../../actions/UserAction';
 import { InputLine, DisplayKeyValues } from './../../utils/keyValueComponents';
@@ -13,23 +13,7 @@ export class Profile extends React.Component {
     super();
     this.state = {
       editMode: false,
-      date: null,
-      firstName: null,
-      surname: null,
-      email: null,
-      phoneNumber: null,
     };
-  }
-
-  componentDidMount() {
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({
-      date: this.props.state.profile.dob,
-      firstName: this.props.state.profile.name.first,
-      surname: this.props.state.profile.name.last,
-      email: this.props.state.profile.email,
-      phoneNumber: this.props.state.profile.phoneNumber,
-    });
   }
 
   toggleEdit = () => {
@@ -38,47 +22,44 @@ export class Profile extends React.Component {
 
   handleEditClose = () => {
     this.toggleEdit();
-    this.props.updateDob(this.state.date);
-    this.props.updateName(this.state.firstName, this.state.surname);
-    this.props.updateEmail(this.state.email);
-    this.props.updatePhoneNumber(this.state.phoneNumber);
   };
 
   render() {
+    const dateFormat = this.props.settingsState.display.dateFormat;
     const profileProperties = [
       {
         property: 'First Name: ',
         value: this.props.state.profile.name.first,
-        defaultValue: this.state.firstName,
-        setStateCallback: (val) => this.setState({ firstName: val }),
+        defaultValue: this.props.state.profile.name.first,
+        setStateCallback: (val) => this.props.updateName(val, this.props.state.profile.name.last),
         editType: 'text',
       },
       {
         property: 'Surname',
         value: this.props.state.profile.name.last,
-        defaultValue: this.state.surname,
-        setStateCallback: (val) => this.setState({ surname: val }),
+        defaultValue: this.props.state.profile.name.last,
+        setStateCallback: (val) => this.props.updateName(this.props.state.profile.name.first, val),
         editType: 'text',
       },
       {
         property: 'Date of Birth',
-        value: moment(this.props.state.profile.dob, 'DD-MM-YYYY').format('DD-MM-YYYY'),
-        defaultValue: moment(this.state.date, 'DD-MM-YYYY').format('DD-MM-YYYY'),
-        setStateCallback: (val) => this.setState({ date: val }),
+        value: moment(this.props.state.profile.dob, 'DD-MM-YYYY').format(dateFormat),
+        defaultValue: this.props.state.profile.dob,
+        setStateCallback: (val) => this.props.updateDob(moment(val, dateFormat).format('DD-MM-YYYY')),
         editType: 'datePicker',
       },
       {
         property: 'Phone Number',
         value: this.props.state.profile.phoneNumber,
-        defaultValue: this.state.phoneNumber,
-        setStateCallback: (val) => this.setState({ phoneNumber: val }),
+        defaultValue: this.props.state.profile.phoneNumber,
+        setStateCallback: (val) => this.props.updatePhoneNumber(val),
         editType: 'text',
       },
       {
         property: 'E-mail',
         value: this.props.state.profile.email,
-        defaultValue: this.state.email,
-        setStateCallback: (val) => this.setState({ email: val }),
+        defaultValue: this.props.state.profile.email,
+        setStateCallback: (val) => this.props.updateEmail(val),
         editType: 'text',
       },
     ];
@@ -90,20 +71,11 @@ export class Profile extends React.Component {
           transparent={true}
           visible={this.state.editMode}
           onRequestClose={() => {
-            Alert.alert('Saved changes.');
+            this.handleEditClose();
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <InputLine properties={profileProperties} />
-              <View style={styles.editProfileButtonContainer}>
-                <TouchableHighlight
-                  style={styles.saveButton}
-                  onPress={() => {
-                    this.handleEditClose();
-                  }}>
-                  <Text style={styles.textSave}>Save Changes</Text>
-                </TouchableHighlight>
-              </View>
             </View>
           </View>
         </Modal>
@@ -199,6 +171,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     state: state.UserReducer,
+    settingsState: state.SettingsReducer,
   };
 };
 

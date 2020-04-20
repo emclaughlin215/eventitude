@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
 import PreviewEvent from './PreviewEvent';
 import AppHeader from './../../appHeader/AppHeader';
+import CreateEvent from './../CreateEvent/CreateEvent';
 import moment from 'moment';
 import { Colors } from '@blueprintjs/core';
 import { Icon } from 'react-native-elements';
-import CreateEvent from './../CreateEvent/index';
 
 export class EventsFeed extends React.Component {
   constructor() {
@@ -29,22 +29,23 @@ export class EventsFeed extends React.Component {
 
   getFilteredEvents = (reverse) => {
     return this.props.events
-      .filter((event) => reverse * (moment.now() - moment(event.date, 'DD-MM-YYYY')) <= 0)
+      .filter((event) => reverse * (moment.now() - moment(event.dateTime, 'DD-MM-YYYY')) <= 0)
       .sort(function(a, b) {
-        return reverse * (moment(a.date, 'DD-MM-YYYY') - moment(b.date, 'DD-MM-YYYY'));
+        return reverse * (moment(a.dateTime, 'DD-MM-YYYY') - moment(b.dateTime, 'DD-MM-YYYY'));
       })
       .map((value) => (
         <PreviewEvent
           navigation={this.props.navigation}
           key={value.title + '_' + value.date}
           title={value.title}
-          date={value.date}
+          date={value.dateTime}
           image={value.image}
         />
       ));
   };
 
   render() {
+    console.log(this.props.events);
     return (
       <>
         <AppHeader navigation={this.props.navigation} />

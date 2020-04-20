@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, FlatList, TouchableHighlight, Text, Image, Dimensions, StyleSheet, Alert, Modal } from 'react-native';
-import { ImagePicker } from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import { Colors } from '@blueprintjs/core';
 
 export class ImageSelector extends React.Component {
@@ -8,14 +8,33 @@ export class ImageSelector extends React.Component {
     super(props);
     this.state = {
       editPhotoMode: false,
-    }
+    };
   }
 
   renderImage = (image, size, shape) => {
-    return shape === "round" ?
-      <Image style={ size === "large" ? styles.imageRoundLarge : size === "small" ? styles.imageRoundSmall : styles.imageRoundMedium } source={image} />
-      : 
-      <Image style={ size === "large" ? styles.imageSquareLarge : size === "small" ? styles.imageSquareSmall : styles.imageSquareMedium } source={image} />
+    return shape === 'round' ? (
+      <Image
+        style={
+          size === 'large'
+            ? styles.imageRoundLarge
+            : size === 'small'
+            ? styles.imageRoundSmall
+            : styles.imageRoundMedium
+        }
+        source={image}
+      />
+    ) : (
+      <Image
+        style={
+          size === 'large'
+            ? styles.imageSquareLarge
+            : size === 'small'
+            ? styles.imageSquareSmall
+            : styles.imageSquareMedium
+        }
+        source={image}
+      />
+    );
   };
 
   toggleEditPhoto = () => {
@@ -29,6 +48,7 @@ export class ImageSelector extends React.Component {
       includeExif: true,
       cropping: true,
     }).then((image) => {
+      this.props.callbackSetImage({ uri: image.path, width: image.width, height: image.height, mime: image.mime });
       console.log(image);
     });
   };
@@ -43,16 +63,17 @@ export class ImageSelector extends React.Component {
     })
       .then((image) => {
         console.log('received image', image);
+        this.props.callbackSetImage({ uri: image.path, width: image.width, height: image.height, mime: image.mime });
       })
       .catch((e) => alert(e));
   };
 
   render() {
     const options = [
-      {text: 'Select From Photos', function: () => this.selectFromPhotos()},
-      {text: 'Select From Camera', function: () => this.selectFromCamera()},
-      {text: 'Close', function: () => this.toggleEditPhoto()},      
-    ]
+      { text: 'Select From Photos', function: () => this.selectFromPhotos() },
+      { text: 'Select From Camera', function: () => this.selectFromCamera() },
+      { text: 'Close', function: () => this.toggleEditPhoto() },
+    ];
     return (
       <View style={styles.imageArea}>
         <TouchableHighlight
@@ -70,7 +91,7 @@ export class ImageSelector extends React.Component {
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <FlatList 
+              <FlatList
                 data={options}
                 renderItem={({ item }) => (
                   <TouchableHighlight onPress={item.function} style={styles.optionButton}>
@@ -107,7 +128,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 2,
     width: Dimensions.get('window').width / 2,
     borderRadius: 8,
-  },  
+  },
   imageSquareLarge: {
     alignSelf: 'center',
     height: Dimensions.get('window').width / 1.5,
@@ -125,7 +146,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 2,
     width: Dimensions.get('window').width / 2,
     borderRadius: Dimensions.get('window').width / 4,
-  },  
+  },
   imageRoundLarge: {
     alignSelf: 'center',
     height: Dimensions.get('window').width / 1.5,
@@ -147,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    display: 'flex',    
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     height: Dimensions.get('window').height / 4,

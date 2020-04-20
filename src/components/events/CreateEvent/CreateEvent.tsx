@@ -2,11 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { View, Text, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
 import { InputLine } from './../../../utils/keyValueComponents';
-import { addTitle, addLocation, addDateTime, addDescription } from './../../../actions/CreateEventAction';
+import { addEvent } from './../../../actions/CreateEventAction';
 import { ImageSelector } from './../../../utils/imageComponents';
 import { Colors } from '@blueprintjs/core';
+import moment from 'moment';
+
+// import Contacts from 'react-native-contacts';
 
 export class CreateEvent extends React.Component {
   constructor() {
@@ -16,19 +19,33 @@ export class CreateEvent extends React.Component {
       location: null,
       dateTime: null,
       description: null,
+      image: require('../../../resources/images/MyBirthday.jpg'),
+      guests: ['0', '1', '4', '7'],
       pageNumber: 0,
+      contacts: null,
     };
   }
 
-  cancelCreateEvent = () => {
-    this.setState({ pageNumber: this.state.pageNumber - 1 });
-  };
+  // componentDidMount = () => {
+  //   Contacts.getAll((err, contacts) => {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     this.setState({contacts: contacts})
+  //   })
+  // }
 
   submitCreateEvent = () => {
-    this.props.createEventState.addTitle(this.state.title);
-    this.props.createEventState.addDateTime(this.state.dateTime);
-    this.props.createEventState.addLocation(this.state.location);
-    this.props.createEventState.addDescription(this.state.description);
+    this.props.addEvent(
+      this.state.title,
+      this.state.dateTime,
+      this.state.location,
+      this.state.description,
+      this.state.image,
+      this.state.guests,
+    );
+    this.state.pageNumber = 0;
+    this.props.cancelCallback();
   };
 
   goBack = () => {
@@ -43,28 +60,29 @@ export class CreateEvent extends React.Component {
     const eventProperties = [
       {
         property: 'Title ',
-        value: 'Title',
+        value: 'Name your event',
         defaultValue: 'Name your event',
         setStateCallback: (val) => this.setState({ title: val }),
         editType: 'text',
       },
       {
-        property: 'Location',
-        value: '',
+        property: 'Location ',
+        value: "Where's is happening?",
         defaultValue: "Where's is happening?",
         setStateCallback: (val) => this.setState({ location: val }),
         editType: 'text',
       },
       {
-        property: 'Date & Time',
+        property: 'Date & Time ',
         value: '',
         defaultValue: '',
-        setStateCallback: (val) => this.setState({ dateTime: val }),
+        setStateCallback: (val) =>
+          this.setState({ dateTime: moment(val, 'HH mm Do MMM YYYY').format('DD-MM-YYYY HH:mm') }),
         editType: 'dateTimePicker',
       },
       {
-        property: 'Description',
-        value: '',
+        property: 'Description ',
+        value: "What's going down?",
         defaultValue: "What's going down?",
         setStateCallback: (val) => this.setState({ Description: val }),
         editType: 'longText',
@@ -72,13 +90,34 @@ export class CreateEvent extends React.Component {
     ];
     return (
       <View style={styles.createEventContainer}>
-        <Text style={styles.headerText}> {this.state.pageNumber === 0 ? '- Details -' : this.state.pageNumber === 1 ? '- Photo -' : this.state.pageNumber === 2 ? '- Guests -' : '- Spotify -'} </Text>
+        <Text style={styles.headerText}>
+          {this.state.pageNumber === 0
+            ? '- Details -'
+            : this.state.pageNumber === 1
+            ? '- Photo -'
+            : this.state.pageNumber === 2
+            ? '- Guests -'
+            : '- Spotify -'}
+        </Text>
         <View style={styles.editContainer}>
           {this.state.pageNumber === 0 ? (
             <InputLine properties={eventProperties} />
+          ) : this.state.pageNumber === 1 ? (
+            <View style={styles.imageArea}>
+              <ImageSelector
+                image={this.state.image}
+                size="medium"
+                shape="square"
+                callbackSetImage={(image) => this.setState({ image: image })}
+              />
+            </View>
           ) : (
             <View style={styles.imageArea}>
-              <ImageSelector image={require('../../../resources/images/MyBirthday.jpg')}  size="medium" shape="square" />
+              <FlatList
+                data={this.state.contacts}
+                renderItem={({ item }) => <Text> {item.givenName} </Text>}
+                keyExtractor={(item) => item.recordID}
+              />
             </View>
           )}
         </View>
@@ -150,17 +189,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    createEventState: state.CreateEventReducer,
+    events: state.EventsReducer.events,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      addTitle,
-      addLocation,
-      addDateTime,
-      addDescription,
+      addEvent,
     },
     dispatch,
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, Text, Dimensions, StyleSheet, TextInput, Picker } from 'react-native';
 import { Colors } from '@blueprintjs/core';
-import { MyDatePicker } from './dateComponents';
+import MyDatePicker from './dateComponents';
 
 export class InputLine extends React.Component<props> {
   constructor(props) {
@@ -23,8 +23,13 @@ export class InputLine extends React.Component<props> {
                 />
               ) : item.editType === 'dateFormatPicker' ? (
                 <Picker style={styles.picker} selectedValue={item.value} onValueChange={item.setStateCallback}>
-                  {['DD-MM-YYYY', 'MM-DD-YYYY'].map((val, index) => (
-                    <Picker.Item key={index + 'dfpPickerItem'} label={val} value={val} />
+                  {[
+                    { type: 'DD-MM-YYYY', disp: '31-12-2020' },
+                    { type: 'MM-DD-YYYY', disp: '12-31-2020' },
+                    { type: 'Do MMM YYYY', disp: '31st Dec 2020' },
+                    { type: 'MMM Do YYYY', disp: 'Dec 31st 2020' },
+                  ].map((val, index) => (
+                    <Picker.Item key={index + 'dfpPickerItem'} label={val.disp} value={val.type} />
                   ))}
                 </Picker>
               ) : item.editType === 'boolean' ? (

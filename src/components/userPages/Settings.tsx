@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableHighlight } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { capitalizeFirst } from './../../utils/stringUtils';
 import {
   updatePrivacyEmail,
@@ -16,36 +16,7 @@ import { InputLine } from './../../utils/keyValueComponents';
 export class Settings extends React.Component {
   constructor() {
     super();
-    this.state = {
-      displayDarkMode: null,
-      displayDateFormat: null,
-      privacyPhoneNumber: null,
-      privacyEmail: null,
-      privacyProfile: null,
-      mapDarkMode: null,
-    };
   }
-
-  componentDidMount() {
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({
-      displayDarkMode: this.props.state.display.darkMode,
-      displayDateFormat: this.props.state.display.dateFormat,
-      privacyPhoneNumber: this.props.state.privacy.phoneNumber,
-      privacyEmail: this.props.state.privacy.email,
-      privacyProfile: this.props.state.privacy.profile,
-      mapsDarkMode: this.props.state.map.darkMode,
-    });
-  }
-
-  handleEditClose = () => {
-    this.props.updateDisplayDarkMode();
-    this.props.updateDisplayDateFormat(this.state.displayDateFormat);
-    this.props.updatePrivacyPhoneNumber();
-    this.props.updatePrivacyEmail();
-    this.props.updatePrivacyProfile();
-    this.props.updateMapDarkMode();
-  };
 
   render() {
     const settings = [
@@ -53,43 +24,43 @@ export class Settings extends React.Component {
         type: 'display',
         editType: 'boolean',
         property: 'Dark Mode',
-        value: this.state.displayDarkMode,
-        setStateCallback: (val) => this.setState({ displayDarkMode: val }),
+        value: this.props.state.display.darkMode,
+        setStateCallback: () => this.props.updateDisplayDarkMode(),
       },
       {
         type: 'display',
         editType: 'dateFormatPicker',
         property: 'Date Format',
-        value: this.state.displayDateFormat,
-        setStateCallback: (val) => this.setState({ displaydateFormat: val }),
+        value: this.props.state.display.dateFormat,
+        setStateCallback: (val) => this.props.updateDisplayDateFormat(val),
       },
       {
         type: 'privacy',
         editType: 'boolean',
         property: 'Phone Number',
-        value: this.state.privacyPhoneNumber,
-        setStateCallback: (val) => this.setState({ privacyPhoneNumber: val }),
+        value: this.props.state.privacy.phoneNumber,
+        setStateCallback: () => this.props.updatePrivacyPhoneNumber(),
       },
       {
         type: 'privacy',
         editType: 'boolean',
         property: 'E-mail',
-        value: this.state.privacyEmail,
-        setStateCallback: (val) => this.setState({ privacyEmail: val }),
+        value: this.props.state.privacy.email,
+        setStateCallback: () => this.props.updatePrivacyEmail(),
       },
       {
         type: 'privacy',
         editType: 'boolean',
         property: 'Profile',
-        value: this.state.privacyProfile,
-        setStateCallback: (val) => this.setState({ privacyProfile: val }),
+        value: this.props.state.privacy.profile,
+        setStateCallback: () => this.props.updatePrivacyProfile(),
       },
       {
         type: 'map',
         editType: 'boolean',
         property: 'Dark Mode',
-        value: this.state.mapDarkMode,
-        setStateCallback: (val) => this.setState({ mapDarkMode: val }),
+        value: this.props.state.map.darkMode,
+        setStateCallback: () => this.props.updateMapDarkMode(),
       },
     ];
     const pageSettings = settings.filter((setting) => setting.type === this.props.navigation.state.routeName);
@@ -99,15 +70,6 @@ export class Settings extends React.Component {
           <Text style={styles.headerText}>{capitalizeFirst(this.props.navigation.state.routeName)}</Text>
         </View>
         <InputLine properties={pageSettings} />
-        <View style={styles.buttonArea}>
-          <TouchableHighlight
-            style={styles.saveButton}
-            onPress={() => {
-              this.handleEditClose();
-            }}>
-            <Text style={styles.textSave}>Save Changes</Text>
-          </TouchableHighlight>
-        </View>
       </ScrollView>
     );
   }

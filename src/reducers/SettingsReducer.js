@@ -4,7 +4,7 @@ const defaultState = {
   section: 'display',
   display: {
     darkMode: false,
-    dateFormat: 'MM-DD-YYY',
+    dateFormat: 'DD-MM-YYYY',
   },
   privacy: {
     phoneNumber: false,
@@ -31,7 +31,7 @@ export const SettingsReducer = (state = defaultState, action) => {
         ...state,
         display: {
           ...state.display,
-          dateFormat: action.playload.dateFormat,
+          dateFormat: action.payload,
         },
       };
     case constants.updatePrivacyPhoneNumber:
