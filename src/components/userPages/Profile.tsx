@@ -13,8 +13,16 @@ export class Profile extends React.Component {
     super();
     this.state = {
       editMode: false,
+      firstName: null,
+      lastName: null,
     };
   }
+
+  UNSAFE_componentDidUpdate = (username = 'emclaughlin') => {
+    fetch('https://192.168.1.137:3000/users?username=' + username)
+      .then((response) => response.json())
+      .then((r) => this.setState({ firstName: r.firstName }));
+  };
 
   toggleEdit = () => {
     this.setState({ editMode: !this.state.editMode });
@@ -65,6 +73,7 @@ export class Profile extends React.Component {
     ];
     return (
       <View styles={styles.page}>
+        <Text> {this.state.firstName} </Text>
         <ImageSelector image={this.props.state.profile.image} size="small" shape="round" />
         <Modal
           animationType="slide"
