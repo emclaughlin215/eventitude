@@ -18,10 +18,10 @@ export class Profile extends React.Component {
     };
   }
 
-  UNSAFE_componentDidUpdate = (username = 'emclaughlin') => {
-    fetch('https://192.168.1.137:3000/users?username=' + username)
+  UNSAFE_componentDidMount = (username = 'emclaughlin') => {
+    fetch('http://192.168.1.137:3000/users?username=' + username)
       .then((response) => response.json())
-      .then((r) => this.setState({ firstName: r.firstName }));
+      .then((r) => this.setState({ firstName: r.first_name }));
   };
 
   toggleEdit = () => {
@@ -37,8 +37,8 @@ export class Profile extends React.Component {
     const profileProperties = [
       {
         property: 'First Name: ',
-        value: this.props.state.profile.name.first,
-        defaultValue: this.props.state.profile.name.first,
+        value: this.state.firstName,
+        defaultValue: this.state.firstName,
         setStateCallback: (val) => this.props.updateName(val, this.props.state.profile.name.last),
         editType: 'text',
       },
@@ -73,7 +73,6 @@ export class Profile extends React.Component {
     ];
     return (
       <View styles={styles.page}>
-        <Text> {this.state.firstName} </Text>
         <ImageSelector image={this.props.state.profile.image} size="small" shape="round" />
         <Modal
           animationType="slide"

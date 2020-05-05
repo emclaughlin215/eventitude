@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const env = require('../.env');
+const mysql = require('mysql2');
+const env = require('../../.env');
 
 const connection = mysql.createPool({
   host: 'localhost',
@@ -13,12 +13,12 @@ const connection = mysql.createPool({
 const app = express();
 
 app.get('/users', function(req, res) {
-  connection.getConnection(function(err, connection) {
+  connection.getConnection(function(err, conn) {
     if (err) {
       throw err;
     }
     const username = req.query.username;
-    connection.query('SELECT * FROM users WHERE username=?', [username], function(error, results, fields) {
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, fields) {
       if (err) {
         throw err;
       }

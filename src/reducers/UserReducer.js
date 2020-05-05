@@ -1,17 +1,18 @@
-import moment from 'moment';
 import { constants } from '../constants';
 
 const defaultState = {
   profile: {
+    username: null,
     name: {
-      first: 'Edward',
-      last: 'McLaughlin',
+      first: null,
+      last: null,
     },
     phoneNumber: '07794061924',
-    email: 'eddymclaughlin4@hotmail.com',
+    email: null,
     dob: '01-09-1994',
     image: require('../resources/images/profilePicture.jpg'),
   },
+  password: null,
   setting: {
     darkMode: false,
   },
@@ -19,6 +20,20 @@ const defaultState = {
 
 export const UserReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case constants.getUser:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          username: action.payload.username,
+          name: {
+            ...state.profile.name,
+            first: action.payload.first_name,
+            last: action.payload.last_name,
+          },
+        },
+        password: action.payload.password,
+      };
     case constants.updateName:
       return {
         ...state,

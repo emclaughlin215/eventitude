@@ -1,5 +1,34 @@
 import { constants } from '../constants';
 
+export const login = (username, password, messageCallback, loginCallback) => {
+  return (dispatch) =>
+    fetch('http://192.168.1.137:3000/users?username=' + username)
+      .then((response) => response.json())
+      .then((users) => {
+        console.log(JSON.stringify(users));
+
+        if (users.length === 0) {
+          messageCallback('Unable to Login, no record of that user name.');
+          return;
+        }
+        const user = users[0];
+        if (password !== user.password) {
+          console.log(password + ' != ' + user.password);
+          messageCallback('Unable to Login, password does not match.');
+          return;
+        }
+        loginCallback();
+        dispatch(_getUser(user));
+      });
+};
+
+const _getUser = (user) => {
+  return {
+    type: constants.getUser,
+    payload: user,
+  };
+};
+
 export const updateName = (name, surname) => {
   return {
     type: constants.updateName,

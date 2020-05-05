@@ -1,5 +1,6 @@
 export const constants = {
   // Profile
+  getUser: 'GET_USER',
   updateEmail: 'UPDATE_EMAIL',
   updateName: 'UPDATE_NAME',
   updatePhoneNumber: 'UPDATE_PHONE_NUMBER',
