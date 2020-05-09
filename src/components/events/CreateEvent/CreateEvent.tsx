@@ -1,12 +1,9 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
-import { View, Text, FlatList, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import { InputLine } from './../../../utils/keyValueComponents';
-import { addEvent } from './../../../actions/CreateEventAction';
 import { ImageSelector } from './../../../utils/imageComponents';
-import { Colors } from '@blueprintjs/core';
+import { styles } from './styles';
 import moment from 'moment';
 
 // import Contacts from 'react-native-contacts';
@@ -143,66 +140,3 @@ export class CreateEvent extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  createEventContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginTop: 15,
-    marginBottom: 30,
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  buttonArea: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  imageArea: {
-    height: Dimensions.get('window').width / 2,
-    width: Dimensions.get('window').width,
-    backgroundColor: Colors.WHITE,
-  },
-  headerArea: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    height: Dimensions.get('window').height / 5,
-    top: '5%',
-  },
-  saveButton: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    width: 150,
-    alignItems: 'center',
-  },
-});
-
-const mapStateToProps = (state) => {
-  return {
-    events: state.EventsReducer.events,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      addEvent,
-    },
-    dispatch,
-  );
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateEvent);

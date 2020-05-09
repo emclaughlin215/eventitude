@@ -1,17 +1,8 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
-import { capitalizeFirst } from './../../utils/stringUtils';
-import {
-  updatePrivacyEmail,
-  updateMapDarkMode,
-  updateDisplayDateFormat,
-  updateDisplayDarkMode,
-  updatePrivacyPhoneNumber,
-  updatePrivacyProfile,
-} from './../../actions/SettingsAction';
-import { InputLine } from './../../utils/keyValueComponents';
+import { Text, View, ScrollView } from 'react-native';
+import { capitalizeFirst } from './../../../utils/stringUtils';
+import { InputLine } from './../../../utils/keyValueComponents';
+import { styles } from './styles';
 
 export class Settings extends React.Component {
   constructor() {
@@ -74,58 +65,3 @@ export class Settings extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  buttonArea: {
-    flex: 1,
-    justifyContent: 'center',
-    marginTop: 22,
-    left: '35%',
-  },
-  headerText: {
-    fontSize: 40,
-  },
-  headerArea: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    height: Dimensions.get('window').height / 5,
-    top: '5%',
-  },
-  saveButton: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    width: 150,
-    alignItems: 'center',
-  },
-});
-
-const mapStateToProps = (state) => {
-  return {
-    state: state.SettingsReducer,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      updateDisplayDarkMode,
-      updateDisplayDateFormat,
-      updatePrivacyPhoneNumber,
-      updatePrivacyEmail,
-      updatePrivacyProfile,
-      updateMapDarkMode,
-    },
-    dispatch,
-  );
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Settings);

@@ -1,10 +1,11 @@
-// import {connect} from 'react-redux';
-// import {EventsFeed} from './EventsFeed';
+import { connect } from 'react-redux';
+import { EventsFeed } from './EventsFeed';
 
-// const mapStateToProps = state => {
-//   return {
-//     showUpcoming: state.showUpcoming,
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    showUpcoming: state.EventsFeedReducer.showUpcoming,
+    events: state.EventsReducer.events,
+  };
+};
 
-// export default connect(mapStateToProps)(EventsFeed);
+export default connect(mapStateToProps)(EventsFeed);

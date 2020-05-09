@@ -4,6 +4,7 @@ import { View, Button, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { InputLine } from './../../utils/keyValueComponents';
 import { login } from './../../actions/UserAction';
+import { globalStylesDark } from './../../utils/globalStyles';
 
 export class Login extends React.Component {
   constructor() {
@@ -37,7 +38,7 @@ export class Login extends React.Component {
       },
     ];
     return (
-      <View>
+      <View style={globalStylesDark.dark}>
         <InputLine properties={inputs} />
         <Button
           title="Login"

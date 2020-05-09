@@ -14,8 +14,6 @@ export const EventsFeedReducer = (state = defaultState, action) => {
         ...state,
         showUpcoming: !state.showUpcoming,
       };
-    default:
-      return state;
     case constants.goToEvent:
       return {
         ...state,
@@ -23,5 +21,7 @@ export const EventsFeedReducer = (state = defaultState, action) => {
         title: action.title,
         image: action.image,
       };
+    default:
+      return state;
   }
 };

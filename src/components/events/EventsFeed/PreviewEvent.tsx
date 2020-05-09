@@ -1,10 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { goToEvent } from '../../../actions/EventsFeedAction';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
+import { previewStyles as styles } from './styles';
 
 export class PreviewEvent extends React.Component {
   goToEvent = (date, title, image) => {
@@ -32,51 +33,6 @@ PreviewEvent.propTypes = {
   title: PropTypes.str,
   image: PropTypes.str,
 };
-
-const styles = StyleSheet.create({
-  eventsFeed: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 30,
-    bottom: 30,
-  },
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-    borderRadius: 80,
-  },
-  preview: {
-    flexDirection: 'column',
-    marginBottom: 30,
-    elevation: 10,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 15,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  date: {
-    fontSize: 15,
-    fontStyle: 'italic',
-  },
-  image: {
-    height: 512,
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-  },
-});
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(

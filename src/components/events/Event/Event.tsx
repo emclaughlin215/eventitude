@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, Dimensions, StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { Text, View, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import styles from './styles';
 
 export class Event extends React.Component {
   constructor() {
@@ -41,35 +41,3 @@ Event.propTypes = {
     image: PropTypes.str,
   }),
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  textHeader: {
-    fontSize: 40,
-    alignSelf: 'flex-start',
-    padding: 10,
-  },
-  textInfo: {
-    fontSize: 20,
-    alignSelf: 'flex-start',
-    paddingLeft: 15,
-    paddingTop: 5,
-  },
-  image: {
-    height: Dimensions.get('window').width / 1.5,
-    width: Dimensions.get('window').width / 1.5,
-    alignItems: 'center',
-  },
-});
-
-const mapStateToProps = (state) => {
-  return {
-    state: state.EventsFeedReducer,
-  };
-};
-
-export default connect(mapStateToProps)(Event);

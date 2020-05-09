@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { View, ScrollView, StyleSheet, Dimensions, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
 import PreviewEvent from './PreviewEvent';
-import AppHeader from './../../appHeader/AppHeader';
-import CreateEvent from './../CreateEvent/CreateEvent';
+import CreateEvent from './../CreateEvent/index';
 import moment from 'moment';
-import { Colors } from '@blueprintjs/core';
 import { Icon } from 'react-native-elements';
+import AppHeader from './../../appHeader/index';
+import { eventFeedStyles as styles } from './styles';
 
 export class EventsFeed extends React.Component {
   constructor() {
@@ -90,65 +89,3 @@ EventsFeed.propTypes = {
   showUpcoming: PropTypes.bool,
   events: PropTypes.arr,
 };
-
-export const styles = StyleSheet.create({
-  eventsFeed: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 15,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 10,
-  },
-  date: {
-    fontSize: 15,
-    fontStyle: 'italic',
-  },
-  image: {
-    height: 512,
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-  },
-  overlay: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: Colors.WHITE,
-    width: Dimensions.get('window').width,
-  },
-  expandButton: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    opacity: 0,
-  },
-  expandBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: 50,
-    width: Dimensions.get('window').width,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-  },
-  newEventArea: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-  },
-});
-
-const mapStateToProps = (state) => {
-  return {
-    showUpcoming: state.EventsFeedReducer.showUpcoming,
-    events: state.EventsReducer.events,
-  };
-};
-
-export default connect(mapStateToProps)(EventsFeed);

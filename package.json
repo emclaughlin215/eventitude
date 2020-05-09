@@ -27,6 +27,7 @@
     "react-dates": "^21.8.0",
     "react-dom": "^16.12.0",
     "react-native": "0.61.5",
+    "react-native-appearance": "^0.3.4",
     "react-native-comments": "^1.1.6",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^5.4.1",

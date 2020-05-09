@@ -1,7 +1,7 @@
-import {connect} from 'react-redux';
-import {Mapping} from './Mapping';
+import { connect } from 'react-redux';
+import { Mapping } from './Mapping';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 

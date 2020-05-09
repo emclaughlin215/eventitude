@@ -7,16 +7,15 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Profile from './../components/userPages/Profile';
-import Settings from './../components/userPages/Settings';
+import Profile from './../userPages/Profile/index';
+import Settings from './../userPages/Settings/index';
+import Mapping from './../maps/index';
+import Event from './../events/Event/index';
+import EventsFeed from './../events/EventsFeed/index';
 
-import { Mapping } from './../components/maps/Mapping';
-
-import Event from './../components/events/Event/Event';
-import EventsFeed from './../components/events/EventsFeed/EventsFeed';
-import Login from './../components/login/Login';
-import AuthLoadingScreen from './../components/login/AuthLoader';
-import { Register } from './../components/login/Register';
+import Login from './../login/Login';
+import AuthLoadingScreen from './../login/AuthLoader';
+import Register from './../login/Register';
 
 const EventNavigation = createMaterialTopTabNavigator(
   {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Icon, TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-export class TouchableIcon extends React.Component {
+export default class TouchableIcon extends React.Component<props> {
   constructor(props) {
     super(props);
   }

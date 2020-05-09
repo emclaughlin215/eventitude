@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, FlatList, Text, Dimensions, StyleSheet, TextInput, Picker } from 'react-native';
-import { Colors } from '@blueprintjs/core';
 import MyDatePicker from './dateComponents';
 
 export class InputLine extends React.Component<props> {
@@ -100,12 +99,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: Colors.WHITE,
   },
   keyValue: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: Colors.WHITE,
     elevation: 10,
   },
   propertyText: {
