@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { View, Text, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { InputLine } from './../../../utils/keyValueComponents';
 import { ImageSelector } from './../../../utils/imageComponents';
 import { styles } from './styles';
 import moment from 'moment';
 
-// import Contacts from 'react-native-contacts';
+import { PermissionsAndroid } from 'react-native';
+import Contacts from 'react-native-contacts';
+import { ContactSelector } from './../../../utils/contactComponent';
+import { TouchableButton } from './../../../utils/touchableComponents';
+import { globalStylesLight } from './../../../utils/globalStyles';
 
 export class CreateEvent extends React.Component {
   constructor() {
@@ -17,20 +21,40 @@ export class CreateEvent extends React.Component {
       dateTime: null,
       description: null,
       image: require('../../../resources/images/MyBirthday.jpg'),
-      guests: ['0', '1', '4', '7'],
+      guests: [],
       pageNumber: 0,
       contacts: null,
     };
   }
 
-  // componentDidMount = () => {
-  //   Contacts.getAll((err, contacts) => {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     this.setState({contacts: contacts})
-  //   })
-  // }
+  componentDidMount = () => {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+      title: 'Contacts',
+      message: 'This app would like to view your contacts.',
+      buttonPositive: 'Please accept bare mortal',
+    }).then(() => {
+      Contacts.getAll((err, contacts) => {
+        if (err === 'denied') {
+          console.log('Insufficient Permissions');
+        } else {
+          console.log(contacts);
+          this.setState({ contacts: contacts });
+        }
+      });
+    });
+  };
+
+  addGuest = (guest) => {
+    this.setState({
+      guests: this.state.guests.push(guest),
+    });
+  };
+
+  removeGuest = (guest) => {
+    this.setState({
+      guests: this.state.guests.filter((gs) => gs.recordId !== guest.recordId),
+    });
+  };
 
   submitCreateEvent = () => {
     this.props.addEvent(
@@ -54,6 +78,36 @@ export class CreateEvent extends React.Component {
   };
 
   render() {
+    const pageToButton = {
+      0: {
+        name: 'Details',
+        backText: 'Cancel',
+        back: () => this.props.cancelCallback(),
+        nextText: 'Next',
+        next: () => this.goNext(),
+      },
+      1: {
+        name: 'Photo',
+        backText: 'Cancel',
+        back: () => this.goBack(),
+        nextText: 'Next',
+        next: () => this.goNext(),
+      },
+      2: {
+        name: 'Guests',
+        backText: 'Cancel',
+        back: () => this.goBack(),
+        nextText: 'Next',
+        next: () => this.goNext(),
+      },
+      3: {
+        name: 'Spotify',
+        backText: 'Cancel',
+        back: () => this.goBack(),
+        nextText: 'Submit',
+        next: () => this.submitCreateEvent(),
+      },
+    };
     const eventProperties = [
       {
         property: 'Title ',
@@ -87,15 +141,7 @@ export class CreateEvent extends React.Component {
     ];
     return (
       <View style={styles.createEventContainer}>
-        <Text style={styles.headerText}>
-          {this.state.pageNumber === 0
-            ? '- Details -'
-            : this.state.pageNumber === 1
-            ? '- Photo -'
-            : this.state.pageNumber === 2
-            ? '- Guests -'
-            : '- Spotify -'}
-        </Text>
+        <Text style={styles.headerText}>{pageToButton[this.state.pageNumber].name}</Text>
         <View style={styles.editContainer}>
           {this.state.pageNumber === 0 ? (
             <InputLine properties={eventProperties} />
@@ -106,6 +152,21 @@ export class CreateEvent extends React.Component {
                 size="medium"
                 shape="square"
                 callbackSetImage={(image) => this.setState({ image: image })}
+              />
+            </View>
+          ) : this.state.pageNumber === 2 ? (
+            <View style={styles.imageArea}>
+              <FlatList
+                data={this.state.contacts}
+                renderItem={({ item }) => (
+                  <ContactSelector
+                    contact={item}
+                    guests={this.state.guests}
+                    addGuestCallback={(g) => this.addGuest(g)}
+                    removeGuestCallback={(g) => this.removeGuests(g)}
+                  />
+                )}
+                keyExtractor={(item) => item.recordID}
               />
             </View>
           ) : (
@@ -120,20 +181,16 @@ export class CreateEvent extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <View style={styles.buttonArea}>
-            <TouchableHighlight
-              style={styles.saveButton}
-              onPress={() => {
-                this.state.pageNumber === 0 ? this.props.cancelCallback() : this.goBack();
-              }}>
-              <Text style={styles.textSave}>{this.state.pageNumber === 0 ? 'Cancel' : 'Back'}</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.saveButton}
-              onPress={() => {
-                this.state.pageNumber === 3 ? this.submitCreateEvent() : this.goNext();
-              }}>
-              <Text style={styles.textSave}>{this.state.pageNumber === 3 ? 'Create Event' : 'Next'}</Text>
-            </TouchableHighlight>
+            <TouchableButton
+              callback={() => pageToButton[this.state.pageNumber].back()}
+              text={pageToButton[this.state.pageNumber].backText}
+              style={globalStylesLight.buttonSecondary}
+            />
+            <TouchableButton
+              callback={() => pageToButton[this.state.pageNumber].next()}
+              text={pageToButton[this.state.pageNumber].nextText}
+              style={globalStylesLight.buttonPrimary}
+            />
           </View>
         </View>
       </View>

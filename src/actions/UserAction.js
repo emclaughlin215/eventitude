@@ -2,7 +2,7 @@ import { constants } from '../constants';
 
 export const login = (username, password, messageCallback, loginCallback) => {
   return (dispatch) =>
-    fetch('http://192.168.1.137:3000/users?username=' + username)
+    fetch('http://192.168.1.137:3000/users/get?username=' + username)
       .then((response) => response.json())
       .then((users) => {
         console.log(JSON.stringify(users));

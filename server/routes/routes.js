@@ -12,7 +12,7 @@ const connection = mysql.createPool({
 
 const app = express();
 
-app.get('/users', function(req, res) {
+app.get('/users/get', function(req, res) {
   connection.getConnection(function(err, conn) {
     if (err) {
       throw err;
@@ -27,6 +27,36 @@ app.get('/users', function(req, res) {
   });
 });
 
+app.get('/users/create', function(req, res) {
+  connection.getConnection(function(err, conn) {
+    if (err) {
+      throw err;
+    }
+    const username = req.query.username;
+    const email = req.query.email;
+
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, fields) {
+      if (err) {
+        throw err;
+      }
+      if (results.length() !== 0) {
+        res.send({ message: 'Username already exists. Pick a different username.' });
+      }
+    });
+
+    conn.query('SELECT * FROM users WHERE email=?', [username], function(error, results, fields) {
+      if (err) {
+        throw err;
+      }
+      if (results.length() !== 0) {
+        res.send({
+          message: 'Email is already registered. If you have forgotten your password, please use login recovery.',
+        });
+      }
+    });
+  });
+});
+
 app.listen(3000, () => {
-  console.log('Go to http://localhost:3000/users so you can see the data.');
+  console.log('Server Started');
 });

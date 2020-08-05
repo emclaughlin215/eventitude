@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Picker, Text, AsyncStorage } from 'react-native';
 import { PropTypes } from 'prop-types';
 import styles from './styles';
-import TouchableIcon from './../../utils/touchableComponents';
+import { TouchableIcon } from './../../utils/touchableComponents';
 
 export class AppHeader extends React.Component {
   logoutActions = async () => {

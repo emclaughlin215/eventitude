@@ -2,25 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Colors } from '@blueprintjs/core';
 
 export const previewStyles = StyleSheet.create({
-  eventsFeed: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 30,
-    bottom: 30,
-  },
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-    borderRadius: 80,
-  },
   preview: {
     flexDirection: 'column',
     marginBottom: 30,

@@ -9,7 +9,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Profile from './../userPages/Profile/index';
 import Settings from './../userPages/Settings/index';
-import Mapping from './../maps/index';
+// import Mapping from './../maps/index';
 import Event from './../events/Event/index';
 import EventsFeed from './../events/EventsFeed/index';
 
@@ -43,12 +43,12 @@ const EventNavigation = createMaterialTopTabNavigator(
         tabBarIcon: ({ _tintColor }) => <Icon name="music" type="font-awesome" iconStyle="solid" size={25} />,
       },
     },
-    map: {
-      screen: Mapping,
-      navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="map-marker" type="font-awesome" iconStyle="solid" size={25} />,
-      },
-    },
+    // map: {
+    //   screen: Mapping,
+    //   navigationOptions: {
+    //     tabBarIcon: ({ _tintColor }) => <Icon name="map-marker" type="font-awesome" iconStyle="solid" size={25} />,
+    //   },
+    // },
   },
   {
     tabBarOptions: {

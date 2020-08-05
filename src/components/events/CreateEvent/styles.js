@@ -5,9 +5,15 @@ export const styles = StyleSheet.create({
   createEventContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     marginTop: 15,
     marginBottom: 30,
+  },
+  editContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 20,
+    marginBottom: 20,
   },
   headerText: {
     fontSize: 20,
@@ -34,12 +40,5 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     height: Dimensions.get('window').height / 5,
     top: '5%',
-  },
-  saveButton: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    width: 150,
-    alignItems: 'center',
   },
 });

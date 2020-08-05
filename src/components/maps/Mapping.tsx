@@ -1,14 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
-import MapView from 'react-native-maps';
-import { defaultMapStyle, styles } from './styles';
+// import { View } from 'react-native';
+// import MapView from 'react-native-maps';
+// import { defaultMapStyle, styles } from './styles';
 
 export class Mapping extends React.Component {
   render() {
-    var mapStyle = defaultMapStyle;
+    // var mapStyle = defaultMapStyle;
     return (
-      <View style={styles.container}>
-        <MapView
+      // <View style={styles.container}>
+      {
+        /* <MapView
           style={styles.map}
           customMapStyle={mapStyle}
           toolbarEnabled={true}
@@ -17,9 +18,10 @@ export class Mapping extends React.Component {
             longitude: -1.1862864,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          }}
-        />
-      </View>
+          }} */
+      }
+      // />
+      // </View>
     );
   }
 }
