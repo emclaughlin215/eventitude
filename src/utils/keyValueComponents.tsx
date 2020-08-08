@@ -3,11 +3,11 @@ import { View, FlatList, Text, Dimensions, StyleSheet, TextInput, Picker } from 
 import MyDatePicker from './dateComponents';
 
 export interface IInputLineProperty {
-  property: String;
-  value: String;
-  defaultValue: String;
-  setStateCallback: (val: String | Date) => void;
-  editType: String;
+  property: string;
+  value?: string;
+  defaultValue?: string;
+  setStateCallback: (val: string | Date) => void;
+  editType: string;
 }
 
 export interface IInputLine {
@@ -84,11 +84,11 @@ export class InputLine extends React.Component<IInputLine> {
 }
 
 export interface IDisplayKeyValue {
-  property: String;
-  value: String;
-  defaultValue: String;
-  setStateCallback: (val: String | Date) => void;
-  editType: String;
+  property: string;
+  value: string;
+  defaultValue: string;
+  setStateCallback: (val: string | Date) => void;
+  editType: string;
 }
 
 export interface IDisplayKeyValues {

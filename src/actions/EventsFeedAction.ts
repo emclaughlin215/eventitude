@@ -7,11 +7,13 @@ export const toggleEventsFeedType = () => {
   };
 };
 
-export const goToEvent = (payload: IEventsFeedAction) => {
+export const goToEvent = (args: IEventsFeedAction) => {
   return {
     type: constants.goToEvent,
-    date: payload.date,
-    title: payload.title,
-    image: payload.image,
+    payload: {
+      date: args.date,
+      title: args.title,
+      image: args.image,
+    },
   };
 };

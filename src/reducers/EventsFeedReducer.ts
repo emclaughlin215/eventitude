@@ -1,10 +1,10 @@
 import { constants } from './../constants';
 
 export interface IEventsFeedReducer {
-  showUpcoming: Boolean;
-  date: String;
-  title: String;
-  image: String;
+  showUpcoming: boolean;
+  date: string;
+  title: string;
+  image: string;
 }
 
 const defaultState: IEventsFeedReducer = {
@@ -15,14 +15,13 @@ const defaultState: IEventsFeedReducer = {
 };
 
 export interface IEventsFeedAction {
-  type: String;
-  date?: String;
-  title?: String;
-  image?: String;
+  date?: string;
+  title?: string;
+  image?: string;
 }
 
 export interface IEventsFeedActionWithType extends IEventsFeedAction {
-  type: String;
+  type: string;
 }
 
 export const EventsFeedReducer = (state = defaultState, action: IEventsFeedActionWithType) => {

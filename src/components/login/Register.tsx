@@ -2,19 +2,32 @@ import React from 'react';
 import { View, Button, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { InputLine } from './../../utils/keyValueComponents';
+import { ICombinedReducers } from '../../reducers/index';
 
-export class Register extends React.Component {
+interface IRegisterState {
+  details: {
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+  };
+  message: string;
+  passwordsMatch: boolean;
+}
+
+export class Register extends React.Component<{}, IRegisterState> {
   constructor() {
-    super();
+    super({});
     this.state = {
       details: {
-        firstName: null,
-        lastName: null,
-        username: null,
-        password: null,
-        confirmPassword: null,
+        firstName: '',
+        lastName: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
       },
-      message: null,
+      message: '',
       passwordsMatch: false,
     };
   }
@@ -32,7 +45,7 @@ export class Register extends React.Component {
     const inputs = [
       {
         property: 'First Name: ',
-        setStateCallback: (val) => {
+        setStateCallback: (val: string) => {
           details.firstName = val;
           this.setState({ details: details });
         },
@@ -40,7 +53,7 @@ export class Register extends React.Component {
       },
       {
         property: 'Last Name: ',
-        setStateCallback: (val) => {
+        setStateCallback: (val: string) => {
           details.lastName = val;
           this.setState({ details: details });
         },
@@ -48,7 +61,7 @@ export class Register extends React.Component {
       },
       {
         property: 'Username: ',
-        setStateCallback: (val) => {
+        setStateCallback: (val: string) => {
           details.username = val;
           this.setState({ details: details });
         },
@@ -56,7 +69,7 @@ export class Register extends React.Component {
       },
       {
         property: 'Password: ',
-        setStateCallback: (val) => {
+        setStateCallback: (val: string) => {
           details.password = val;
           this.setState({ details: details });
         },
@@ -64,7 +77,7 @@ export class Register extends React.Component {
       },
       {
         property: 'Confirm Password: ',
-        setStateCallback: (val) => {
+        setStateCallback: (val: string) => {
           details.confirmPassword = val;
           this.setState({ details: details });
         },
@@ -85,7 +98,7 @@ export class Register extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
     state: state.UserReducer,
   };

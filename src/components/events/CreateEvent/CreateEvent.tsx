@@ -11,21 +11,18 @@ import Contacts from 'react-native-contacts';
 import { ContactSelector } from './../../../utils/contactComponent';
 import { TouchableButton } from './../../../utils/touchableComponents';
 import { globalStylesLight } from './../../../utils/globalStyles';
-import { IEvent } from '../../../reducers/EventsReducer';
+import { addEvent } from './../../../actions/CreateEventAction';
 
 export interface ICreateEventProps {
   cancelCallback: () => void;
-  addGuest: () => void;
-  removeGuest: () => void;
-  addEvent: (args: IEvent) => void;
 }
 
 interface ICreateEventState {
-  title: String;
-  location: String;
-  dateTime: String;
-  description: String;
-  image: String;
+  title: string;
+  location: string;
+  dateTime: string;
+  description: string;
+  image: string;
   guests: Contacts.Contact[];
   pageNumber: number;
   contacts?: Contacts.Contact[];
@@ -77,7 +74,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
   };
 
   submitCreateEvent = () => {
-    this.props.addEvent({
+    addEvent({
       title: this.state.title,
       dateTime: this.state.dateTime,
       location: this.state.location,
@@ -133,14 +130,14 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
         property: 'Title ',
         value: 'Name your event',
         defaultValue: 'Name your event',
-        setStateCallback: (val: String) => this.setState({ title: val }),
+        setStateCallback: (val: string) => this.setState({ title: val }),
         editType: 'text',
       },
       {
         property: 'Location ',
         value: "Where's is happening?",
         defaultValue: "Where's is happening?",
-        setStateCallback: (val: String) => this.setState({ location: val }),
+        setStateCallback: (val: string) => this.setState({ location: val }),
         editType: 'text',
       },
       {
@@ -155,7 +152,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
         property: 'Description ',
         value: "What's going down?",
         defaultValue: "What's going down?",
-        setStateCallback: (val: String) => this.setState({ description: val }),
+        setStateCallback: (val: string) => this.setState({ description: val }),
         editType: 'longText',
       },
     ];
@@ -171,7 +168,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
                 image={this.state.image}
                 size="medium"
                 shape="square"
-                callbackSetImage={(image: String) => this.setState({ image: image })}
+                callbackSetImage={(image: string) => this.setState({ image: image })}
               />
             </View>
           ) : this.state.pageNumber === 2 ? (
@@ -182,8 +179,8 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
                   <ContactSelector
                     contact={item}
                     guests={this.state.guests}
-                    addGuestCallback={(g: String) => this.addGuest(g)}
-                    removeGuestCallback={(g: String) => this.removeGuest(g)}
+                    addGuestCallback={(g: Contacts.Contact) => this.addGuest(g)}
+                    removeGuestCallback={(g: Contacts.Contact) => this.removeGuest(g)}
                   />
                 )}
                 keyExtractor={(item: Contacts.Contact) => item.recordID}

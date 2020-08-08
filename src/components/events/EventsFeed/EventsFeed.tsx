@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
 import PreviewEvent from './PreviewEvent';
 import CreateEvent from './../CreateEvent/index';
@@ -7,10 +6,20 @@ import moment from 'moment';
 import { Icon } from 'react-native-elements';
 import AppHeader from './../../appHeader/index';
 import { eventFeedStyles as styles } from './styles';
+import { IEvent } from '../../../reducers/EventsReducer';
 
-export class EventsFeed extends React.Component {
-  constructor() {
-    super();
+interface IEventsFeed {
+  showUpcoming: boolean;
+  events: IEvent[];
+}
+
+interface IEventsFeedState {
+  createEvent: boolean;
+}
+
+export class EventsFeed extends React.Component<IEventsFeed, IEventsFeedState> {
+  constructor(props: IEventsFeed) {
+    super(props);
     this.state = {
       createEvent: false,
     };
@@ -26,7 +35,7 @@ export class EventsFeed extends React.Component {
     });
   };
 
-  getFilteredEvents = (reverse) => {
+  getFilteredEvents = (reverse: number) => {
     return this.props.events
       .filter((event) => reverse * (moment.now() - moment(event.dateTime, 'DD-MM-YYYY')) <= 0)
       .sort(function(a, b) {
@@ -35,7 +44,7 @@ export class EventsFeed extends React.Component {
       .map((value) => (
         <PreviewEvent
           navigation={this.props.navigation}
-          key={value.title + '_' + value.date}
+          key={value.title + '_' + value.dateTime}
           title={value.title}
           date={value.dateTime}
           image={value.image}
@@ -60,7 +69,6 @@ export class EventsFeed extends React.Component {
                 name={this.state.createEvent ? 'angle-down' : 'angle-up'}
                 style={styles.arrowStyle}
                 type="font-awesome"
-                iconStyle="solid"
                 size={25}
               />
               <Text style={styles.title}> Create Event </Text>
@@ -68,7 +76,6 @@ export class EventsFeed extends React.Component {
                 name={this.state.createEvent ? 'angle-down' : 'angle-up'}
                 style={styles.arrowStyle}
                 type="font-awesome"
-                iconStyle="solid"
                 size={25}
               />
             </View>
@@ -81,11 +88,3 @@ export class EventsFeed extends React.Component {
     );
   }
 }
-
-EventsFeed.propTypes = {
-  navigation: PropTypes.shape({
-    pageTitle: PropTypes.str,
-  }),
-  showUpcoming: PropTypes.bool,
-  events: PropTypes.arr,
-};

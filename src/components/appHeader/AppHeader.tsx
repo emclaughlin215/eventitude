@@ -2,18 +2,16 @@ import React from 'react';
 import { View, Picker, Text } from 'react-native';
 import styles from './styles';
 import { TouchableIcon } from './../../utils/touchableComponents';
-import { StackNavigationProp } from 'react-navigation-stack';
 
-export interface Props {
+export interface IAppHeader {
   showUpcoming: boolean;
-  toggleEventsFeedType: () => void;
-  navigation: StackNavigationProp;
+  toggleEventsFeedType: () => string;
 }
 
 // interface State {}
 
-export class AppHeader extends React.Component<Props> {
-  constructor(props: Props) {
+export class AppHeader extends React.Component<IAppHeader> {
+  constructor(props: IAppHeader) {
     super(props);
     this.state = {};
   }

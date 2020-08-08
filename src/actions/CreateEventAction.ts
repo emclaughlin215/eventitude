@@ -1,15 +1,15 @@
 import { constants } from './../constants';
 import { IEvent } from '../reducers/EventsReducer';
 
-export const addEvent = (payload: IEvent) => {
+export const addEvent = (args: IEvent) => {
   return {
     type: constants.addEvent,
     payload: {
-      title: payload.title,
-      location: payload.location,
-      dateTime: payload.dateTime,
-      description: payload.description,
-      guests: payload.guests,
+      title: args.title,
+      location: args.location,
+      dateTime: args.dateTime,
+      description: args.description,
+      guests: args.guests,
     },
   };
 };

@@ -5,8 +5,8 @@ import { TouchableButton } from './touchableComponents';
 import Contacts from 'react-native-contacts';
 
 export interface IContactSelector {
-  addGuestCallback: () => void;
-  removeGuestCallback: () => void;
+  addGuestCallback: (g: Contacts.Contact) => void;
+  removeGuestCallback: (g: Contacts.Contact) => void;
   contact: Contacts.Contact;
   guests: Contacts.Contact[];
 }
@@ -20,12 +20,12 @@ export class ContactSelector extends React.Component<IContactSelector> {
     const contactButtonTypes = {
       0: {
         text: 'Add',
-        callback: () => this.props.addGuestCallback(),
+        callback: (g: Contacts.Contact) => this.props.addGuestCallback(g),
         buttonStyle: globalStylesLight.buttonPrimary,
       },
       1: {
         text: 'Remove',
-        callback: () => this.props.removeGuestCallback(),
+        callback: (g: Contacts.Contact) => this.props.removeGuestCallback(g),
         buttonStyle: globalStylesLight.buttonSecondary,
       },
     };
@@ -35,7 +35,7 @@ export class ContactSelector extends React.Component<IContactSelector> {
         <Text> {this.props.contact.givenName} </Text>
         <Text> {this.props.guests} </Text>
         <TouchableButton
-          callback={() => contactButtonTypes[0].callback()}
+          callback={(g: Contacts.Contact) => contactButtonTypes[0].callback(g)}
           text={contactButtonTypes[0].text}
           style={contactButtonTypes[0].buttonStyle}
         />

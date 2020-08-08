@@ -1,11 +1,11 @@
 export interface IGlobalButtonStyle {
-  backgroundColor: String;
-  color: String;
+  backgroundColor: string;
+  color: string;
 }
 
 export interface IGlobalContainerStyle {
-  backgroundColor: String;
-  color: String;
+  backgroundColor: string;
+  color: string;
 }
 
 export interface IGlobalStyle {

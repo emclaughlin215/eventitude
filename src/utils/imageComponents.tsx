@@ -1,17 +1,35 @@
 import React from 'react';
-import { View, FlatList, TouchableHighlight, Text, Image, Dimensions, StyleSheet, Alert, Modal } from 'react-native';
+import { View, FlatList, TouchableHighlight, Text, Dimensions, Image, StyleSheet, Alert, Modal } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Colors } from '@blueprintjs/core';
 
-export class ImageSelector extends React.Component {
-  constructor(props) {
+export interface ISelectedImage {
+  path: string;
+  width: number;
+  height: number;
+  mime: string;
+}
+
+interface IImageSelectorState {
+  editPhotoMode: boolean;
+}
+
+interface IImageProps {
+  image: string;
+  size: string;
+  shape: string;
+  callbackSetImage: (selectedImage: ISelectedImage) => void;
+}
+
+export class ImageSelector extends React.Component<IImageProps, IImageSelectorState> {
+  constructor(props: IImageProps) {
     super(props);
     this.state = {
       editPhotoMode: false,
     };
   }
 
-  renderImage = (image, size, shape) => {
+  renderImage = (image: string, size: string, shape: string) => {
     return shape === 'round' ? (
       <Image
         style={
@@ -48,8 +66,11 @@ export class ImageSelector extends React.Component {
       includeExif: true,
       cropping: true,
     }).then((image) => {
-      this.props.callbackSetImage({ uri: image.path, width: image.width, height: image.height, mime: image.mime });
-      console.log(image);
+      if (Array.isArray(image)) {
+        console.log('More than one image was returned. Selecting the first.');
+        image = image[0];
+      }
+      this.props.callbackSetImage({ path: image.path, width: image.width, height: image.height, mime: image.mime });
     });
   };
 
@@ -62,10 +83,13 @@ export class ImageSelector extends React.Component {
       mediaType: 'photo',
     })
       .then((image) => {
-        console.log('received image', image);
-        this.props.callbackSetImage({ uri: image.path, width: image.width, height: image.height, mime: image.mime });
+        if (Array.isArray(image)) {
+          console.log('More than one image was returned. Selecting the first.');
+          image = image[0];
+        }
+        this.props.callbackSetImage({ path: image.path, width: image.width, height: image.height, mime: image.mime });
       })
-      .catch((e) => alert(e));
+      .catch((e) => Alert(e));
   };
 
   render() {

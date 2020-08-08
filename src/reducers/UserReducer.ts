@@ -1,31 +1,31 @@
 import { constants } from '../constants';
 
 export interface IUserReducer {
-  username: String;
-  first: String;
-  last: String;
-  phoneNumber: String;
-  email: String;
-  dob: String;
-  image: String;
-  password: String;
+  username: string;
+  first: string;
+  last: string;
+  phoneNumber: string;
+  email: string;
+  dob: string;
+  image: string;
+  password: string;
 }
 
 export interface IUserAction {
-  username?: String;
-  password?: String;
-  firstName?: String;
-  lastName?: String;
-  phoneNumber?: String;
-  email?: String;
-  dob?: String;
-  image?: String;
-  messageCallback?: Function;
-  loginCallback?: Function;
+  username?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  email?: string;
+  dob?: string;
+  image?: string;
+  messageCallback?: (message: string) => void;
+  loginCallback?: () => void;
 }
 
 interface IUserActionWithType extends IUserAction {
-  type: String;
+  type: string;
 }
 
 const defaultState: IUserReducer = {

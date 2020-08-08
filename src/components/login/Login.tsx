@@ -1,18 +1,25 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { View, Button, Text, AsyncStorage } from 'react-native';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { InputLine } from './../../utils/keyValueComponents';
 import { login } from './../../actions/UserAction';
-import { globalStylesDark } from './../../utils/globalStyles';
+import { globalStylesLight } from '../../utils/globalStyles';
+import { ICombinedReducers } from '../../reducers/index';
 
-export class Login extends React.Component {
+interface ILoginState {
+  username: string;
+  password: string;
+  message: string;
+}
+
+export class Login extends React.Component<{}, ILoginState> {
   constructor() {
-    super();
+    super({});
     this.state = {
-      username: null,
-      password: null,
-      message: null,
+      username: '',
+      password: '',
+      message: '',
     };
   }
 
@@ -28,25 +35,25 @@ export class Login extends React.Component {
     const inputs = [
       {
         property: 'Username: ',
-        setStateCallback: (val) => this.setState({ username: val }),
+        setStateCallback: (val: string) => this.setState({ username: val }),
         editType: 'text',
       },
       {
         property: 'Password: ',
-        setStateCallback: (val) => this.setState({ password: val }),
+        setStateCallback: (val: string) => this.setState({ password: val }),
         editType: 'text',
       },
     ];
     return (
-      <View style={globalStylesDark.dark}>
+      <View style={globalStylesLight.container}>
         <InputLine properties={inputs} />
         <Button
           title="Login"
           onPress={() =>
-            this.props.login(
+            login(
               this.state.username,
               this.state.password,
-              (val) => this.setState({ message: val }),
+              (val: string) => this.setState({ message: val }),
               () => this.loginActions(),
             )
           }
@@ -57,13 +64,14 @@ export class Login extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
     state: state.UserReducer,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const dispatch = useDispatch();
+const mapDispatchToProps = () => {
   return bindActionCreators(
     {
       login,

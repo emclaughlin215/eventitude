@@ -1,16 +1,18 @@
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { updateDob, updateEmail, updateName, updatePhoneNumber } from './../../../actions/UserAction';
 import { Profile } from './Profile';
+import { ICombinedReducers } from '../../../reducers/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
     state: state.UserReducer,
     settingsState: state.SettingsReducer,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const dispatch = useDispatch();
+const mapDispatchToProps = () => {
   return bindActionCreators(
     {
       updateDob,

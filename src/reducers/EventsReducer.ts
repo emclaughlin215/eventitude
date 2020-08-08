@@ -2,11 +2,11 @@ import { constants } from './../constants';
 import Contacts from 'react-native-contacts';
 
 export interface IEvent {
-  title: String;
-  dateTime: String;
-  location: String;
-  description: String;
-  image: String;
+  title: string;
+  dateTime: string;
+  location: string;
+  description: string;
+  image: string;
   guests: Contacts.Contact[];
 }
 
@@ -15,7 +15,7 @@ export interface IEventsReducer {
 }
 
 export interface IAddEventActionWithType extends IEvent {
-  type: String;
+  type: string;
 }
 
 const defaultState: IEventsReducer = {

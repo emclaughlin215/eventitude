@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { EventsFeed } from './EventsFeed';
+import { ICombinedReducers } from '../../../reducers/index';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
-    showUpcoming: state.EventsFeedReducer.showUpcoming,
-    events: state.EventsReducer.events,
+    state: state.EventsFeedReducer,
   };
 };
 

@@ -1,13 +1,13 @@
 import { constants } from './../constants';
 
 export interface ISettingsReducer {
-  section: String;
-  darkMode: Boolean;
-  dateFormat: String;
-  phoneNumber: String;
-  email: String;
-  profile: String;
-  MapDarkMode: Boolean;
+  section: string;
+  darkMode: boolean;
+  dateFormat: string;
+  phoneNumber: string;
+  email: string;
+  profile: string;
+  mapDarkMode: boolean;
 }
 
 const defaultState: ISettingsReducer = {
@@ -21,11 +21,11 @@ const defaultState: ISettingsReducer = {
 };
 
 export interface ISettingsAction {
-  dateFormat?: String;
+  dateFormat?: string;
 }
 
 export interface ISettingsActionWithType extends ISettingsAction {
-  type: String;
+  type: string;
 }
 
 export const SettingsReducer = (state = defaultState, action: ISettingsActionWithType) => {
@@ -58,7 +58,7 @@ export const SettingsReducer = (state = defaultState, action: ISettingsActionWit
     case constants.updateMapsDarkMode:
       return {
         ...state,
-        mapDarkMode: !state.darkMode,
+        mapDarkMode: !state.mapDarkMode,
       };
     default:
       return state;

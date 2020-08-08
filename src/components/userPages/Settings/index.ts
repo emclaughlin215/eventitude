@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Settings } from './Settings';
+import { ICombinedReducers } from '../../../reducers/index';
 import {
   updateDisplayDarkMode,
   updateDisplayDateFormat,
@@ -10,13 +11,14 @@ import {
   updateMapDarkMode,
 } from './../../../actions/SettingsAction';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
     state: state.SettingsReducer,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const dispatch = useDispatch();
+const mapDispatchToProps = () => {
   return bindActionCreators(
     {
       updateDisplayDarkMode,

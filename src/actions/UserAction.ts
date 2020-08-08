@@ -1,6 +1,11 @@
 import { constants } from '../constants';
 
-export const login = (username: String, password: String, messageCallback: Function, loginCallback: Function) => {
+export const login = (
+  username: string,
+  password: string,
+  messageCallback: (message: string) => void,
+  loginCallback: () => void,
+) => {
   return (dispatch: Function) =>
     fetch('http://192.168.1.137:3000/users/get?username=' + username)
       .then((response) => response.json())
@@ -22,14 +27,14 @@ export const login = (username: String, password: String, messageCallback: Funct
       });
 };
 
-const _getUser = (user: String) => {
+const _getUser = (user: string) => {
   return {
     type: constants.getUser,
     payload: user,
   };
 };
 
-export const updateName = (firstName: String, surname: String) => {
+export const updateName = (firstName: string, surname: string) => {
   return {
     type: constants.updateName,
     payload: {
@@ -39,28 +44,28 @@ export const updateName = (firstName: String, surname: String) => {
   };
 };
 
-export const updatePhoneNumber = (phoneNumber: String) => {
+export const updatePhoneNumber = (phoneNumber: string) => {
   return {
     type: constants.updatePhoneNumber,
     payload: phoneNumber,
   };
 };
 
-export const updateEmail = (email: String) => {
+export const updateEmail = (email: string) => {
   return {
     type: constants.updateEmail,
     payload: email,
   };
 };
 
-export const updateDob = (date: String) => {
+export const updateDob = (date: string) => {
   return {
     type: constants.updateDob,
     payload: date,
   };
 };
 
-export const updateProfilePicture = (picture: String) => {
+export const updateProfilePicture = (picture: string) => {
   return {
     type: constants.updateProfilePicture,
     payload: picture,

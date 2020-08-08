@@ -1,15 +1,15 @@
 import React from 'react';
 import { TouchableWithoutFeedback, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { IGlobalButtonStyle, IGlobalContainerStyle } from './globalStyles';
+import { IGlobalButtonStyle, globalStylesLight } from './globalStyles';
 
 export interface ITouchableIcon {
-  callback: () => void;
-  name: String;
-  library: String;
-  size: Number;
-  style: String;
-  container: IGlobalContainerStyle;
+  callback: (arg: any) => void;
+  name: string;
+  library: string;
+  size: number;
+  style: string;
+  container: any;
 }
 
 export class TouchableIcon extends React.Component<ITouchableIcon> {
@@ -19,13 +19,13 @@ export class TouchableIcon extends React.Component<ITouchableIcon> {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.callback()}>
+      <TouchableWithoutFeedback onPress={(arg: any) => this.props.callback(arg)}>
         <Icon
           name={this.props.name}
           type={this.props.library}
           size={this.props.size}
           iconStyle={this.props.style}
-          containerStyle={this.props.container}
+          containerStyle={{ ...this.props.container, ...globalStylesLight.container }}
         />
       </TouchableWithoutFeedback>
     );
@@ -34,7 +34,7 @@ export class TouchableIcon extends React.Component<ITouchableIcon> {
 
 export interface ITouchableButton {
   callback: () => void;
-  text: String;
+  text: string;
   buttonStyle: IGlobalButtonStyle;
 }
 

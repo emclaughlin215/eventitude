@@ -4,14 +4,29 @@ import moment from 'moment';
 import { InputLine, DisplayKeyValues } from './../../../utils/keyValueComponents';
 import { ImageSelector } from './../../../utils/imageComponents';
 import { styles } from './styles';
+import { ISettingsReducer } from '../../../reducers/SettingsReducer';
+import { IUserReducer } from '../../../reducers/UserReducer';
+import { updateName, updateDob, updatePhoneNumber, updateEmail } from '../../../actions/UserAction';
+import { IInputLine } from '../../../utils/keyValueComponents';
 
-export class Profile extends React.Component {
-  constructor() {
-    super();
+interface IProfileState {
+  editMode: boolean;
+  firstName: string;
+  lastName: string;
+}
+
+interface IProfilePropsWithState {
+  settingsState: ISettingsReducer;
+  userState: IUserReducer;
+}
+
+export class Profile extends React.Component<IProfilePropsWithState, IProfileState> {
+  constructor(props: IProfilePropsWithState) {
+    super(props);
     this.state = {
       editMode: false,
-      firstName: null,
-      lastName: null,
+      firstName: '',
+      lastName: '',
     };
   }
 
@@ -30,47 +45,47 @@ export class Profile extends React.Component {
   };
 
   render() {
-    const dateFormat = this.props.settingsState.display.dateFormat;
-    const profileProperties = [
+    const dateFormat = this.props.settingsState.dateFormat;
+    const profileProperties: IInputLine = [
       {
         property: 'First Name: ',
         value: this.state.firstName,
         defaultValue: this.state.firstName,
-        setStateCallback: (val) => this.props.updateName(val, this.props.state.profile.name.last),
+        setStateCallback: (val: string) => updateName(val, this.props.userState.last),
         editType: 'text',
       },
       {
         property: 'Surname',
-        value: this.props.state.profile.name.last,
-        defaultValue: this.props.state.profile.name.last,
-        setStateCallback: (val) => this.props.updateName(this.props.state.profile.name.first, val),
+        value: this.props.userState.last,
+        defaultValue: this.props.userState.last,
+        setStateCallback: (val: string) => updateName(this.props.userState.first, val),
         editType: 'text',
       },
       {
         property: 'Date of Birth',
-        value: moment(this.props.state.profile.dob, 'DD-MM-YYYY').format(dateFormat),
-        defaultValue: this.props.state.profile.dob,
-        setStateCallback: (val) => this.props.updateDob(moment(val, dateFormat).format('DD-MM-YYYY')),
+        value: moment(this.props.userState.dob, 'DD-MM-YYYY').format(dateFormat),
+        defaultValue: this.props.userState.dob,
+        setStateCallback: (val: string) => updateDob(moment(val, dateFormat).format('DD-MM-YYYY')),
         editType: 'datePicker',
       },
       {
         property: 'Phone Number',
-        value: this.props.state.profile.phoneNumber,
-        defaultValue: this.props.state.profile.phoneNumber,
-        setStateCallback: (val) => this.props.updatePhoneNumber(val),
+        value: this.props.userState.phoneNumber,
+        defaultValue: this.props.userState.phoneNumber,
+        setStateCallback: (val: string) => updatePhoneNumber(val),
         editType: 'text',
       },
       {
         property: 'E-mail',
-        value: this.props.state.profile.email,
-        defaultValue: this.props.state.profile.email,
-        setStateCallback: (val) => this.props.updateEmail(val),
+        value: this.props.userState.email,
+        defaultValue: this.props.userState.email,
+        setStateCallback: (val: string) => updateEmail(val),
         editType: 'text',
       },
     ];
     return (
       <View styles={styles.page}>
-        <ImageSelector image={this.props.state.profile.image} size="small" shape="round" />
+        <ImageSelector image={this.props.userState.image} size="small" shape="round" />
         <Modal
           animationType="slide"
           transparent={true}

@@ -6,9 +6,9 @@ import { ICombinedReducers } from '../reducers/index';
 import { ISettingsReducer } from '../reducers/SettingsReducer';
 
 export interface IMyDatePicker {
-  editType: String;
-  defaultValue: String;
-  callback: (val: Date | String) => void;
+  editType: string;
+  defaultValue: string;
+  callback: (val: Date | string) => void;
 }
 
 interface IMyDatePickerWithState extends IMyDatePicker {
@@ -49,7 +49,7 @@ export class MyDatePicker extends React.Component<IMyDatePickerWithState> {
         getDateStr={(date: Date) =>
           this.props.editType === 'dateTimePicker'
             ? moment(date, 'DD-MM-YYYY HH:mm').format('HH mm Do MMM YYYY')
-            : moment(date, 'DD-MM-YYYY').format(dateFormat.toString())
+            : moment(date, 'DD-MM-YYYY').format(dateFormat)
         }
       />
     );
