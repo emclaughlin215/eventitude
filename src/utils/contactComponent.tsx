@@ -2,9 +2,17 @@ import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { globalStylesLight } from './globalStyles';
 import { TouchableButton } from './touchableComponents';
+import Contacts from 'react-native-contacts';
 
-export class ContactSelector extends React.Component<props> {
-  constructor(props) {
+export interface IContactSelector {
+  addGuestCallback: () => void;
+  removeGuestCallback: () => void;
+  contact: Contacts.Contact;
+  guests: Contacts.Contact[];
+}
+
+export class ContactSelector extends React.Component<IContactSelector> {
+  constructor(props: IContactSelector) {
     super(props);
   }
 
@@ -17,14 +25,14 @@ export class ContactSelector extends React.Component<props> {
       },
       1: {
         text: 'Remove',
-        callback: () => this.removeGuestCallback(),
+        callback: () => this.props.removeGuestCallback(),
         buttonStyle: globalStylesLight.buttonSecondary,
       },
     };
     return (
       <View style={styles.contactDisplayContainer}>
         <Image source={{ uri: this.props.contact.thumbnailPath }} />
-        <Text> {this.props.contact.displayName} </Text>
+        <Text> {this.props.contact.givenName} </Text>
         <Text> {this.props.guests} </Text>
         <TouchableButton
           callback={() => contactButtonTypes[0].callback()}

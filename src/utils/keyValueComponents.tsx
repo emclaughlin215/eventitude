@@ -2,8 +2,20 @@ import React from 'react';
 import { View, FlatList, Text, Dimensions, StyleSheet, TextInput, Picker } from 'react-native';
 import MyDatePicker from './dateComponents';
 
-export class InputLine extends React.Component<props> {
-  constructor(props) {
+export interface IInputLineProperty {
+  property: String;
+  value: String;
+  defaultValue: String;
+  setStateCallback: (val: String | Date) => void;
+  editType: String;
+}
+
+export interface IInputLine {
+  properties: IInputLineProperty[];
+}
+
+export class InputLine extends React.Component<IInputLine> {
+  constructor(props: IInputLine) {
     super(props);
   }
   render() {
@@ -41,7 +53,7 @@ export class InputLine extends React.Component<props> {
                 <View style={styles.keyValue}>
                   <TextInput
                     style={styles.valueText}
-                    editable
+                    editable={true}
                     multiline={true}
                     numberOfLines={4}
                     scrollEnabled={true}
@@ -53,7 +65,7 @@ export class InputLine extends React.Component<props> {
                 <View style={styles.keyValue}>
                   <TextInput
                     style={styles.valueText}
-                    editable
+                    editable={true}
                     maxLength={40}
                     defaultValue={item.defaultValue}
                     onChangeText={item.setStateCallback}
@@ -71,8 +83,20 @@ export class InputLine extends React.Component<props> {
   }
 }
 
-export class DisplayKeyValues extends React.Component<props> {
-  constructor(props) {
+export interface IDisplayKeyValue {
+  property: String;
+  value: String;
+  defaultValue: String;
+  setStateCallback: (val: String | Date) => void;
+  editType: String;
+}
+
+export interface IDisplayKeyValues {
+  properties: IDisplayKeyValue[];
+}
+
+export class DisplayKeyValues extends React.Component<IDisplayKeyValues> {
+  constructor(props: IDisplayKeyValues) {
     super(props);
   }
   render() {
@@ -86,7 +110,7 @@ export class DisplayKeyValues extends React.Component<props> {
               <Text style={styles.valueText}>{item.value}</Text>
             </View>
           )}
-          keyExtractor={(item) => item.property}
+          keyExtractor={(item: IDisplayKeyValue) => item.property}
         />
       </View>
     );

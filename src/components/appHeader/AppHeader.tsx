@@ -1,13 +1,25 @@
 import React from 'react';
-import { View, Picker, Text, AsyncStorage } from 'react-native';
-import { PropTypes } from 'prop-types';
+import { View, Picker, Text } from 'react-native';
 import styles from './styles';
 import { TouchableIcon } from './../../utils/touchableComponents';
+import { StackNavigationProp } from 'react-navigation-stack';
 
-export class AppHeader extends React.Component {
-  logoutActions = async () => {
-    AsyncStorage.clear().then(this.props.navigation.navigate('AuthLoading'));
-  };
+export interface Props {
+  showUpcoming: boolean;
+  toggleEventsFeedType: () => void;
+  navigation: StackNavigationProp;
+}
+
+// interface State {}
+
+export class AppHeader extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {};
+  }
+  // logoutActions = async () => {
+  //   AsyncStorage.clear().then(this.props.navigation.navigate('AuthLoading'));
+  // };
 
   render() {
     return (
@@ -46,8 +58,3 @@ export class AppHeader extends React.Component {
     );
   }
 }
-
-AppHeader.propTypes = {
-  showUpcoming: PropTypes.bool,
-  toggleEventsFeedType: PropTypes.func,
-};

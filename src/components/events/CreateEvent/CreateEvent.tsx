@@ -11,19 +11,37 @@ import Contacts from 'react-native-contacts';
 import { ContactSelector } from './../../../utils/contactComponent';
 import { TouchableButton } from './../../../utils/touchableComponents';
 import { globalStylesLight } from './../../../utils/globalStyles';
+import { IEvent } from '../../../reducers/EventsReducer';
 
-export class CreateEvent extends React.Component {
-  constructor() {
-    super();
+export interface ICreateEventProps {
+  cancelCallback: () => void;
+  addGuest: () => void;
+  removeGuest: () => void;
+  addEvent: (args: IEvent) => void;
+}
+
+interface ICreateEventState {
+  title: String;
+  location: String;
+  dateTime: String;
+  description: String;
+  image: String;
+  guests: Contacts.Contact[];
+  pageNumber: number;
+  contacts?: Contacts.Contact[];
+}
+
+export class CreateEvent extends React.Component<ICreateEventProps, ICreateEventState> {
+  constructor(props: ICreateEventProps) {
+    super(props);
     this.state = {
-      title: null,
-      location: null,
-      dateTime: null,
-      description: null,
+      title: '',
+      location: '',
+      dateTime: '',
+      description: '',
       image: require('../../../resources/images/MyBirthday.jpg'),
       guests: [],
       pageNumber: 0,
-      contacts: null,
     };
   }
 
@@ -44,28 +62,30 @@ export class CreateEvent extends React.Component {
     });
   };
 
-  addGuest = (guest) => {
+  addGuest = (guest: Contacts.Contact) => {
+    let newGuests = this.state.guests;
+    newGuests.push(guest);
     this.setState({
-      guests: this.state.guests.push(guest),
+      guests: newGuests,
     });
   };
 
-  removeGuest = (guest) => {
+  removeGuest = (guest: Contacts.Contact) => {
     this.setState({
-      guests: this.state.guests.filter((gs) => gs.recordId !== guest.recordId),
+      guests: this.state.guests.filter((gs) => gs.recordID !== guest.recordID),
     });
   };
 
   submitCreateEvent = () => {
-    this.props.addEvent(
-      this.state.title,
-      this.state.dateTime,
-      this.state.location,
-      this.state.description,
-      this.state.image,
-      this.state.guests,
-    );
-    this.state.pageNumber = 0;
+    this.props.addEvent({
+      title: this.state.title,
+      dateTime: this.state.dateTime,
+      location: this.state.location,
+      description: this.state.description,
+      image: this.state.image,
+      guests: this.state.guests,
+    });
+    this.setState({ pageNumber: 0 });
     this.props.cancelCallback();
   };
 
@@ -78,56 +98,56 @@ export class CreateEvent extends React.Component {
   };
 
   render() {
-    const pageToButton = {
-      0: {
+    const pageToButton = [
+      {
         name: 'Details',
         backText: 'Cancel',
         back: () => this.props.cancelCallback(),
         nextText: 'Next',
         next: () => this.goNext(),
       },
-      1: {
+      {
         name: 'Photo',
         backText: 'Cancel',
         back: () => this.goBack(),
         nextText: 'Next',
         next: () => this.goNext(),
       },
-      2: {
+      {
         name: 'Guests',
         backText: 'Cancel',
         back: () => this.goBack(),
         nextText: 'Next',
         next: () => this.goNext(),
       },
-      3: {
+      {
         name: 'Spotify',
         backText: 'Cancel',
         back: () => this.goBack(),
         nextText: 'Submit',
         next: () => this.submitCreateEvent(),
       },
-    };
+    ];
     const eventProperties = [
       {
         property: 'Title ',
         value: 'Name your event',
         defaultValue: 'Name your event',
-        setStateCallback: (val) => this.setState({ title: val }),
+        setStateCallback: (val: String) => this.setState({ title: val }),
         editType: 'text',
       },
       {
         property: 'Location ',
         value: "Where's is happening?",
         defaultValue: "Where's is happening?",
-        setStateCallback: (val) => this.setState({ location: val }),
+        setStateCallback: (val: String) => this.setState({ location: val }),
         editType: 'text',
       },
       {
         property: 'Date & Time ',
         value: '',
         defaultValue: '',
-        setStateCallback: (val) =>
+        setStateCallback: (val: Date) =>
           this.setState({ dateTime: moment(val, 'HH mm Do MMM YYYY').format('DD-MM-YYYY HH:mm') }),
         editType: 'dateTimePicker',
       },
@@ -135,7 +155,7 @@ export class CreateEvent extends React.Component {
         property: 'Description ',
         value: "What's going down?",
         defaultValue: "What's going down?",
-        setStateCallback: (val) => this.setState({ Description: val }),
+        setStateCallback: (val: String) => this.setState({ description: val }),
         editType: 'longText',
       },
     ];
@@ -151,7 +171,7 @@ export class CreateEvent extends React.Component {
                 image={this.state.image}
                 size="medium"
                 shape="square"
-                callbackSetImage={(image) => this.setState({ image: image })}
+                callbackSetImage={(image: String) => this.setState({ image: image })}
               />
             </View>
           ) : this.state.pageNumber === 2 ? (
@@ -162,11 +182,11 @@ export class CreateEvent extends React.Component {
                   <ContactSelector
                     contact={item}
                     guests={this.state.guests}
-                    addGuestCallback={(g) => this.addGuest(g)}
-                    removeGuestCallback={(g) => this.removeGuests(g)}
+                    addGuestCallback={(g: String) => this.addGuest(g)}
+                    removeGuestCallback={(g: String) => this.removeGuest(g)}
                   />
                 )}
-                keyExtractor={(item) => item.recordID}
+                keyExtractor={(item: Contacts.Contact) => item.recordID}
               />
             </View>
           ) : (
@@ -184,12 +204,12 @@ export class CreateEvent extends React.Component {
             <TouchableButton
               callback={() => pageToButton[this.state.pageNumber].back()}
               text={pageToButton[this.state.pageNumber].backText}
-              style={globalStylesLight.buttonSecondary}
+              buttonStyle={globalStylesLight.buttonSecondary}
             />
             <TouchableButton
               callback={() => pageToButton[this.state.pageNumber].next()}
               text={pageToButton[this.state.pageNumber].nextText}
-              style={globalStylesLight.buttonPrimary}
+              buttonStyle={globalStylesLight.buttonPrimary}
             />
           </View>
         </View>

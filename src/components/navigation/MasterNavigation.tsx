@@ -22,25 +22,25 @@ const EventNavigation = createMaterialTopTabNavigator(
     details: {
       screen: Event,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="list-alt" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="list-alt" type="font-awesome" size={25} />,
       },
     },
     guests: {
       screen: Event,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="users" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="users" type="font-awesome" size={25} />,
       },
     },
     photos: {
       screen: Event,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="image" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="image" type="font-awesome" size={25} />,
       },
     },
     spotify: {
       screen: Event,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="music" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="music" type="font-awesome" size={25} />,
       },
     },
     // map: {
@@ -56,13 +56,13 @@ const EventNavigation = createMaterialTopTabNavigator(
         top: '50%',
       },
       indicatorStyle: {
-        color: Colors.BLUE,
+        borderBottomColor: Colors.BLUE1,
       },
       showLabel: false,
       showIcon: true,
       style: {
         backgroundColor: Colors.WHITE,
-        borderColor: Colors.WHTIE,
+        borderColor: Colors.WHITE,
         height: Dimensions.get('window').height / 10,
       },
     },
@@ -74,13 +74,13 @@ const LoginNavigation = createMaterialTopTabNavigator(
     login: {
       screen: Login,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="sign-in" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="sign-in" type="font-awesome" size={25} />,
       },
     },
     register: {
       screen: Register,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="plus" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="plus" type="font-awesome" size={25} />,
       },
     },
   },
@@ -90,13 +90,13 @@ const LoginNavigation = createMaterialTopTabNavigator(
         top: '50%',
       },
       indicatorStyle: {
-        color: Colors.BLUE,
+        borderBottomColor: Colors.BLUE1,
       },
       showLabel: false,
       showIcon: true,
       style: {
         backgroundColor: Colors.WHITE,
-        borderColor: Colors.WHTIE,
+        borderColor: Colors.WHITE,
         height: Dimensions.get('window').height / 10,
       },
     },
@@ -108,19 +108,19 @@ const SettingNavigation = createMaterialTopTabNavigator(
     display: {
       screen: Settings,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="tint" type="font-awesome" size={25} />,
+        tabBarIcon: () => <Icon name="tint" type="font-awesome" size={25} />,
       },
     },
     privacy: {
       screen: Settings,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="key" type="font-awesome" size={25} />,
+        tabBarIcon: () => <Icon name="key" type="font-awesome" size={25} />,
       },
     },
     map: {
       screen: Settings,
       navigationOptions: {
-        tabBarIcon: ({ _tintColor }) => <Icon name="map-marker" type="font-awesome" iconStyle="solid" size={25} />,
+        tabBarIcon: () => <Icon name="map-marker" type="font-awesome" size={25} />,
       },
     },
   },
@@ -130,13 +130,13 @@ const SettingNavigation = createMaterialTopTabNavigator(
         top: '50%',
       },
       indicatorStyle: {
-        color: Colors.BLUE,
+        borderBottomColor: Colors.BLUE1,
       },
       showLabel: false,
       showIcon: true,
       style: {
         backgroundColor: Colors.WHITE,
-        borderColor: Colors.WHTIE,
+        borderColor: Colors.WHITE,
         height: Dimensions.get('window').height / 10,
       },
     },
@@ -148,7 +148,7 @@ const EventsNavigation = createStackNavigator(
     eventsFeed: {
       screen: EventsFeed,
       navigationOptions: {
-        header: false,
+        headerShown: false,
       },
     },
     event: {

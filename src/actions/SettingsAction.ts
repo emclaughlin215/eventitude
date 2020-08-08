@@ -1,4 +1,5 @@
 import { constants } from './../constants';
+import { ISettingsAction } from '../reducers/SettingsReducer';
 
 export const updateDisplayDarkMode = () => {
   return {
@@ -6,10 +7,10 @@ export const updateDisplayDarkMode = () => {
   };
 };
 
-export const updateDisplayDateFormat = (dateFormat) => {
+export const updateDisplayDateFormat = (args: ISettingsAction) => {
   return {
     type: constants.updateDisplayDateFormat,
-    payload: dateFormat,
+    payload: args.dateFormat,
   };
 };
 

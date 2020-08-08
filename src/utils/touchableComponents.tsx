@@ -1,9 +1,19 @@
 import React from 'react';
 import { TouchableWithoutFeedback, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { IGlobalButtonStyle, IGlobalContainerStyle } from './globalStyles';
 
-export class TouchableIcon extends React.Component<props> {
-  constructor(props) {
+export interface ITouchableIcon {
+  callback: () => void;
+  name: String;
+  library: String;
+  size: Number;
+  style: String;
+  container: IGlobalContainerStyle;
+}
+
+export class TouchableIcon extends React.Component<ITouchableIcon> {
+  constructor(props: ITouchableIcon) {
     super(props);
   }
 
@@ -22,17 +32,23 @@ export class TouchableIcon extends React.Component<props> {
   }
 }
 
-export class TouchableButton extends React.Component<props> {
-  constructor(props) {
+export interface ITouchableButton {
+  callback: () => void;
+  text: String;
+  buttonStyle: IGlobalButtonStyle;
+}
+
+export class TouchableButton extends React.Component<ITouchableButton> {
+  constructor(props: ITouchableButton) {
     super(props);
   }
 
   render() {
     return (
       <TouchableHighlight
-        style={{ ...styles.button, backgroundColor: this.props.style.backgroundColor }}
+        style={{ ...styles.button, backgroundColor: this.props.buttonStyle.backgroundColor }}
         onPress={() => this.props.callback()}>
-        <Text style={{ ...styles.text, color: this.props.style.color }}>{this.props.text}</Text>
+        <Text style={{ ...styles.text, color: this.props.buttonStyle.color }}>{this.props.text}</Text>
       </TouchableHighlight>
     );
   }

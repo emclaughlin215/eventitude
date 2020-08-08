@@ -2,14 +2,26 @@ import React from 'react';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { ICombinedReducers } from '../reducers/index';
+import { ISettingsReducer } from '../reducers/SettingsReducer';
 
-export class MyDatePicker extends React.Component {
-  constructor(props) {
+export interface IMyDatePicker {
+  editType: String;
+  defaultValue: String;
+  callback: (val: Date | String) => void;
+}
+
+interface IMyDatePickerWithState extends IMyDatePicker {
+  settingsState: ISettingsReducer;
+}
+
+export class MyDatePicker extends React.Component<IMyDatePickerWithState> {
+  constructor(props: IMyDatePickerWithState) {
     super(props);
   }
 
   render() {
-    const dateFormat = this.props.settingsState.display.dateFormat;
+    const dateFormat = this.props.settingsState.dateFormat;
     return (
       <DatePicker
         style={{ width: 175 }}
@@ -34,17 +46,17 @@ export class MyDatePicker extends React.Component {
           },
         }}
         onDateChange={this.props.callback}
-        getDateStr={(date) =>
+        getDateStr={(date: Date) =>
           this.props.editType === 'dateTimePicker'
             ? moment(date, 'DD-MM-YYYY HH:mm').format('HH mm Do MMM YYYY')
-            : moment(date, 'DD-MM-YYYY').format(dateFormat)
+            : moment(date, 'DD-MM-YYYY').format(dateFormat.toString())
         }
       />
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: ICombinedReducers) => {
   return {
     settingsState: state.SettingsReducer,
   };
