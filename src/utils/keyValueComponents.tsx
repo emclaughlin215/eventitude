@@ -17,11 +17,20 @@ export class InputLine extends React.Component<IInputLine> {
   constructor(props: IInputLine) {
     super(props);
   }
+
+  getItemCount = (data: IInputLine): number => {
+    return data.length;
+  };
+
+  getItem = (data: IInputLineProperty[], index: number) => {
+    return data[index];
+  };
+
   render() {
     return (
       <View style={styles.properties}>
         <VirtualizedList<IInputLineProperty>
-          data={this.props}
+          data={Object.values(this.props)}
           renderItem={({ item }) => (
             <View style={styles.keyValue}>
               <Text style={styles.propertyText}>{item.property}</Text>
@@ -71,11 +80,14 @@ export class InputLine extends React.Component<IInputLine> {
                   />
                 </View>
               ) : (
-                console.log('Invalid editType - {}', item.editType)
+                console.log('Invalid editType - {}', item)
               )}
             </View>
           )}
+          getItem={this.getItem}
+          getItemCount={this.getItemCount}
           keyExtractor={(item: IInputLineProperty) => item.property}
+          debug={true}
         />
       </View>
     );
@@ -96,6 +108,15 @@ export class DisplayKeyValues extends React.Component<IDisplayKeyValues> {
   constructor(props: IDisplayKeyValues) {
     super(props);
   }
+
+  getItemCount = (data: IDisplayKeyValues): number => {
+    return data.length;
+  };
+
+  getItem = (data: IDisplayKeyValue) => {
+    return data;
+  };
+
   render() {
     return (
       <View style={styles.properties}>
@@ -107,6 +128,8 @@ export class DisplayKeyValues extends React.Component<IDisplayKeyValues> {
               <Text style={styles.valueText}>{item.value}</Text>
             </View>
           )}
+          getItem={this.getItem}
+          getItemCount={this.getItemCount}
           keyExtractor={(item: IDisplayKeyValue) => item.property}
         />
       </View>

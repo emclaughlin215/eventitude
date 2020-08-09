@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import express from 'express';
+const express = require('express');
+const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const env = require('../../.env');
 
@@ -12,14 +12,13 @@ const connection = mysql.createPool({
 
 const app = express();
 
-app.get('/users/get', function(req: Request, res: Response) {
-  connection.getConnection(function(err: any, conn: any) {
+app.get('/users/get', function(req, res) {
+  connection.getConnection(function(err, conn) {
     if (err) {
-      connection.release();
       throw err;
     }
     const username = req.query.username;
-    conn.query('SELECT * FROM users WHERE username=?', [username], function(error: any, results: any, _fields: any) {
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, fields) {
       if (err) {
         throw err;
       }
@@ -28,16 +27,15 @@ app.get('/users/get', function(req: Request, res: Response) {
   });
 });
 
-app.get('/users/create', function(req: Request, res: Response) {
-  connection.getConnection(function(err: any, conn: any) {
+app.get('/users/create', function(req, res) {
+  connection.getConnection(function(err, conn) {
     if (err) {
       throw err;
     }
     const username = req.query.username;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const email = req.query.email;
 
-    conn.query('SELECT * FROM users WHERE username=?', [username], function(error: any, results: any, _fields: any) {
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, fields) {
       if (err) {
         throw err;
       }
@@ -46,7 +44,7 @@ app.get('/users/create', function(req: Request, res: Response) {
       }
     });
 
-    conn.query('SELECT * FROM users WHERE email=?', [username], function(error: any, results: any, _fields: any) {
+    conn.query('SELECT * FROM users WHERE email=?', [username], function(error, results, fields) {
       if (err) {
         throw err;
       }

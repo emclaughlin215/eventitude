@@ -1,15 +1,16 @@
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { connect, useDispatch } from 'react-redux';
-import { Settings } from './Settings';
-import { ICombinedReducers } from '../../../reducers/index';
+
+import { ICombinedReducers } from '../../../reducers';
 import {
   updateDisplayDarkMode,
   updateDisplayDateFormat,
-  updatePrivacyPhoneNumber,
-  updatePrivacyEmail,
-  updatePrivacyProfile,
   updateMapDarkMode,
+  updatePrivacyEmail,
+  updatePrivacyPhoneNumber,
+  updatePrivacyProfile,
 } from './../../../actions/SettingsAction';
+import { Settings } from './Settings';
 
 const mapStateToProps = (state: ICombinedReducers) => {
   return {
@@ -17,8 +18,7 @@ const mapStateToProps = (state: ICombinedReducers) => {
   };
 };
 
-const dispatch = useDispatch();
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       updateDisplayDarkMode,

@@ -1,5 +1,6 @@
-import { constants } from './../constants';
 import Contacts from 'react-native-contacts';
+
+import { constants } from './../constants';
 
 export interface IEvent {
   title: string;

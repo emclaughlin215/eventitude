@@ -1,9 +1,9 @@
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { AppHeader } from './AppHeader';
+import { ICombinedReducers } from '../../reducers';
 import { toggleEventsFeedType } from './../../actions/EventsFeedAction';
-import { ICombinedReducers } from '../../reducers/index';
+import { AppHeader } from './AppHeader';
 
 const mapStateToProps = (state: ICombinedReducers) => {
   return {
@@ -11,8 +11,7 @@ const mapStateToProps = (state: ICombinedReducers) => {
   };
 };
 
-const dispatch = useDispatch();
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       toggleEventsFeedType,

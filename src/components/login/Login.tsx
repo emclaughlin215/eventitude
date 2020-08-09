@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, Button, Text, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ICombinedReducers } from '../../reducers';
@@ -23,7 +23,7 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
     this.state = {
       username: '',
       password: '',
-      message: '',
+      message: 'Try Logging In',
     };
   }
 
@@ -49,7 +49,7 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
       },
     ];
     return (
-      <View style={globalStylesLight.container}>
+      <View style={{ ...globalStylesLight.container }}>
         <InputLine {...inputs} />
         <Button
           title="Login"
@@ -74,8 +74,7 @@ const mapStateToProps = (state: ICombinedReducers) => {
   };
 };
 
-const dispatch = useDispatch();
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       login,

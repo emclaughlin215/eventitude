@@ -38,6 +38,7 @@ export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedSta
   };
 
   getFilteredEvents = () => {
+    console.log(this.props);
     let showUpcoming = this.props.showUpcoming;
     return this.props.events
       .filter((event) => showUpcoming === moment(event.dateTime, 'DD-MM-YYYY').isAfter(moment.now()))
@@ -56,7 +57,6 @@ export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedSta
   };
 
   render() {
-    console.log(this.props.events);
     return (
       <>
         <AppHeader navigation={this.props.navigation} />

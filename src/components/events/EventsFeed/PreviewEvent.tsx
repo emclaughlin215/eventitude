@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { goToEvent } from '../../../actions/EventsFeedAction';
@@ -31,14 +31,13 @@ export class PreviewEvent extends React.Component<IPreviewEventProps> {
           <Text style={styles.title}>{this.props.title}</Text>
           <Text style={styles.date}>{moment(this.props.date, 'DD-MM-YYYY').format('Ha Do MMM YYYY')}</Text>
         </View>
-        <Image source={require(this.props.image)} style={styles.image} />
+        <Image source={{ uri: this.props.image }} style={styles.image} />
       </TouchableOpacity>
     );
   }
 }
 
-const dispatch = useDispatch();
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       goToEvent,

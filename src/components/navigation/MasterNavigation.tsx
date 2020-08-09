@@ -1,22 +1,20 @@
-import React from 'react';
 import { Colors } from '@blueprintjs/core';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
-
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
-import Profile from './../userPages/Profile/index';
-import Settings from './../userPages/Settings/index';
-// import Mapping from './../maps/index';
-import Event from './../events/Event/index';
-import EventsFeed from './../events/EventsFeed/index';
-
-import Login from './../login/Login';
+import Event from './../events/Event';
+import EventsFeed from './../events/EventsFeed';
 import AuthLoadingScreen from './../login/AuthLoader';
+import Login from './../login/Login';
 import Register from './../login/Register';
+import Profile from './../userPages/Profile';
+import Settings from './../userPages/Settings';
 
+// import Mapping from './../maps/index';
 const EventNavigation = createMaterialTopTabNavigator(
   {
     details: {
@@ -174,7 +172,7 @@ const rootNavigation = createSwitchNavigator(
     Login: LoginNavigation,
   },
   {
-    initialRouteName: 'AuthLoading',
+    initialRouteName: 'App',
   },
 );
 

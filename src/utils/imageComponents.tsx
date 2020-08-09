@@ -39,7 +39,7 @@ export class ImageSelector extends React.Component<IImageProps, IImageSelectorSt
             ? styles.imageRoundSmall
             : styles.imageRoundMedium
         }
-        source={require(image)}
+        source={{ uri: image }}
       />
     ) : (
       <Image
@@ -50,7 +50,7 @@ export class ImageSelector extends React.Component<IImageProps, IImageSelectorSt
             ? styles.imageSquareSmall
             : styles.imageSquareMedium
         }
-        source={require(image)}
+        source={{ uri: image }}
       />
     );
   };

@@ -23,7 +23,7 @@ export class Event extends React.Component<IEvent> {
         <ScrollView>
           <View style={styles.scrollView}>
             <Text style={styles.textHeader}>{this.props.title}</Text>
-            <Image source={require(this.props.image)} style={styles.image} />
+            <Image source={{ uri: this.props.image }} style={styles.image} />
           </View>
           <Text style={styles.textInfo}>Where: Amsterdam</Text>
           <Text style={styles.textInfo}>When: {this.props.dateTime}</Text>

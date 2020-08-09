@@ -37,13 +37,7 @@ export class AppHeader extends React.Component<IAppHeader> {
             container={styles.topIcon}
             callback={() => this.props.navigation.navigate('settings')}
           />
-          <TouchableIcon
-            name="bell"
-            library="font-awesome"
-            size={30}
-            container={styles.topIcon}
-            callback={() => {}}
-          />
+          <TouchableIcon name="bell" library="font-awesome" size={30} container={styles.topIcon} callback={() => {}} />
           <Text style={styles.notifications}> 5 </Text>
           <TouchableIcon
             name="sign-out"
