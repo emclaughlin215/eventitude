@@ -19,7 +19,7 @@ app.get('/users/get', function(req: Request, res: Response) {
       throw err;
     }
     const username = req.query.username;
-    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, _fields) {
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error: any, results: any, _fields: any) {
       if (err) {
         throw err;
       }
@@ -29,7 +29,7 @@ app.get('/users/get', function(req: Request, res: Response) {
 });
 
 app.get('/users/create', function(req: Request, res: Response) {
-  connection.getConnection(function(err, conn) {
+  connection.getConnection(function(err: any, conn: any) {
     if (err) {
       throw err;
     }
@@ -37,7 +37,7 @@ app.get('/users/create', function(req: Request, res: Response) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const email = req.query.email;
 
-    conn.query('SELECT * FROM users WHERE username=?', [username], function(error, results, _fields) {
+    conn.query('SELECT * FROM users WHERE username=?', [username], function(error: any, results: any, _fields: any) {
       if (err) {
         throw err;
       }
@@ -46,7 +46,7 @@ app.get('/users/create', function(req: Request, res: Response) {
       }
     });
 
-    conn.query('SELECT * FROM users WHERE email=?', [username], function(error, results, _fields) {
+    conn.query('SELECT * FROM users WHERE email=?', [username], function(error: any, results: any, _fields: any) {
       if (err) {
         throw err;
       }
