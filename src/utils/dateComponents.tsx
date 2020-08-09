@@ -7,8 +7,8 @@ import { ISettingsReducer } from '../reducers/SettingsReducer';
 
 export interface IMyDatePicker {
   editType: string;
-  defaultValue: string;
   callback: (val: Date | string) => void;
+  defaultValue?: string;
 }
 
 interface IMyDatePickerWithState extends IMyDatePicker {

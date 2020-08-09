@@ -5,15 +5,16 @@ import { goToEvent } from '../../../actions/EventsFeedAction';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { previewStyles as styles } from './styles';
+import { NavigationInjectedProps } from 'react-navigation';
 
-interface IPreviewEvent {
+interface IPreviewEventProps extends NavigationInjectedProps {
   date: string;
   title: string;
   image: string;
 }
 
-export class PreviewEvent extends React.Component<IPreviewEvent> {
-  constructor(props: IPreviewEvent) {
+export class PreviewEvent extends React.Component<IPreviewEventProps> {
+  constructor(props: IPreviewEventProps) {
     super(props);
   }
 

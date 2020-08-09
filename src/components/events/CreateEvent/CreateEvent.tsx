@@ -12,6 +12,7 @@ import { ContactSelector } from './../../../utils/contactComponent';
 import { TouchableButton } from './../../../utils/touchableComponents';
 import { globalStylesLight } from './../../../utils/globalStyles';
 import { addEvent } from './../../../actions/CreateEventAction';
+import { ISelectedImage } from '../../../utils/imageComponents';
 
 export interface ICreateEventProps {
   cancelCallback: () => void;
@@ -22,7 +23,7 @@ interface ICreateEventState {
   location: string;
   dateTime: string;
   description: string;
-  image: string;
+  image: ISelectedImage;
   guests: Contacts.Contact[];
   pageNumber: number;
   contacts?: Contacts.Contact[];
@@ -79,7 +80,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
       dateTime: this.state.dateTime,
       location: this.state.location,
       description: this.state.description,
-      image: this.state.image,
+      image: this.state.image.path,
       guests: this.state.guests,
     });
     this.setState({ pageNumber: 0 });
@@ -165,10 +166,10 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
           ) : this.state.pageNumber === 1 ? (
             <View style={styles.imageArea}>
               <ImageSelector
-                image={this.state.image}
+                image={this.state.image.path}
                 size="medium"
                 shape="square"
-                callbackSetImage={(image: string) => this.setState({ image: image })}
+                callbackSetImage={(image: ISelectedImage) => this.setState({ image: image })}
               />
             </View>
           ) : this.state.pageNumber === 2 ? (

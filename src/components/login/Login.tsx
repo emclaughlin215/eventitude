@@ -6,6 +6,9 @@ import { InputLine } from './../../utils/keyValueComponents';
 import { login } from './../../actions/UserAction';
 import { globalStylesLight } from '../../utils/globalStyles';
 import { ICombinedReducers } from '../../reducers/index';
+import { NavigationInjectedProps } from 'react-navigation';
+
+interface ILoginProps extends NavigationInjectedProps {}
 
 interface ILoginState {
   username: string;
@@ -13,9 +16,9 @@ interface ILoginState {
   message: string;
 }
 
-export class Login extends React.Component<{}, ILoginState> {
-  constructor() {
-    super({});
+export class Login extends React.Component<ILoginProps, ILoginState> {
+  constructor(props: ILoginProps) {
+    super(props);
     this.state = {
       username: '',
       password: '',
@@ -25,7 +28,7 @@ export class Login extends React.Component<{}, ILoginState> {
 
   loginActions = () => {
     AsyncStorage.setItem('userId', 'abc')
-      .then(this.props.navigation.navigate('App'))
+      .then((_res) => this.props.navigation.navigate('App'))
       .catch((error) => {
         console.log(error.message);
       });

@@ -37,7 +37,7 @@ export class ContactSelector extends React.Component<IContactSelector> {
         <TouchableButton
           callback={(g: Contacts.Contact) => contactButtonTypes[0].callback(g)}
           text={contactButtonTypes[0].text}
-          style={contactButtonTypes[0].buttonStyle}
+          buttonStyle={contactButtonTypes[0].buttonStyle}
         />
       </View>
     );

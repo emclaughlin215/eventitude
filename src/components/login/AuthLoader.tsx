@@ -1,9 +1,12 @@
 import React from 'react';
 import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { NavigationInjectedProps } from 'react-navigation';
 
-class AuthLoadingScreen extends React.Component {
-  constructor() {
-    super({});
+interface IAuthLoadingScreenProps extends NavigationInjectedProps {}
+
+class AuthLoadingScreen extends React.Component<IAuthLoadingScreenProps> {
+  constructor(props: IAuthLoadingScreenProps) {
+    super(props);
     this._bootstrapAsync();
   }
 

@@ -33,7 +33,7 @@ export class TouchableIcon extends React.Component<ITouchableIcon> {
 }
 
 export interface ITouchableButton {
-  callback: () => void;
+  callback: (arg?: any) => void;
   text: string;
   buttonStyle: IGlobalButtonStyle;
 }

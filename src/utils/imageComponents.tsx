@@ -89,7 +89,7 @@ export class ImageSelector extends React.Component<IImageProps, IImageSelectorSt
         }
         this.props.callbackSetImage({ path: image.path, width: image.width, height: image.height, mime: image.mime });
       })
-      .catch((e) => Alert(e));
+      .catch((e) => console.log(e));
   };
 
   render() {

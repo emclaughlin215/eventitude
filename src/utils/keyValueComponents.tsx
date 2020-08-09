@@ -6,7 +6,7 @@ export interface IInputLineProperty {
   property: string;
   value?: string;
   defaultValue?: string;
-  setStateCallback: (val: string | Date) => void;
+  setStateCallback: (val: string | Date) => any;
   editType: string;
 }
 

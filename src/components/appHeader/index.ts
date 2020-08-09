@@ -1,5 +1,6 @@
 import { connect, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import { AppHeader } from './AppHeader';
 import { toggleEventsFeedType } from './../../actions/EventsFeedAction';
 import { ICombinedReducers } from '../../reducers/index';
@@ -11,7 +12,6 @@ const mapStateToProps = (state: ICombinedReducers) => {
 };
 
 const dispatch = useDispatch();
-
 const mapDispatchToProps = () => {
   return bindActionCreators(
     {

@@ -7,7 +7,6 @@ import { styles } from './styles';
 import { ISettingsReducer } from '../../../reducers/SettingsReducer';
 import { IUserReducer } from '../../../reducers/UserReducer';
 import { updateName, updateDob, updatePhoneNumber, updateEmail } from '../../../actions/UserAction';
-import { IInputLine } from '../../../utils/keyValueComponents';
 
 interface IProfileState {
   editMode: boolean;
@@ -46,7 +45,7 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
 
   render() {
     const dateFormat = this.props.settingsState.dateFormat;
-    const profileProperties: IInputLine = [
+    const profileProperties = [
       {
         property: 'First Name: ',
         value: this.state.firstName,
@@ -84,8 +83,8 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
       },
     ];
     return (
-      <View styles={styles.page}>
-        <ImageSelector image={this.props.userState.image} size="small" shape="round" />
+      <View style={styles.page}>
+        <ImageSelector image={this.props.userState.image} size="small" shape="round" callbackImage={() => {}} />
         <Modal
           animationType="slide"
           transparent={true}
@@ -106,7 +105,7 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
             onPress={() => {
               this.toggleEdit();
             }}>
-            <Text style={styles.textStyle}>Edit Profile</Text>
+            <Text>Edit Profile</Text>
           </TouchableHighlight>
         </View>
       </View>

@@ -2,13 +2,12 @@ import React from 'react';
 import { View, Picker, Text } from 'react-native';
 import styles from './styles';
 import { TouchableIcon } from './../../utils/touchableComponents';
+import { NavigationInjectedProps } from 'react-navigation';
+import { toggleEventsFeedType } from '../../actions/EventsFeedAction';
 
-export interface IAppHeader {
+export interface IAppHeader extends NavigationInjectedProps {
   showUpcoming: boolean;
-  toggleEventsFeedType: () => string;
 }
-
-// interface State {}
 
 export class AppHeader extends React.Component<IAppHeader> {
   constructor(props: IAppHeader) {
@@ -39,15 +38,29 @@ export class AppHeader extends React.Component<IAppHeader> {
             container={styles.topIcon}
             callback={() => this.props.navigation.navigate('settings')}
           />
-          <TouchableIcon name="bell" library="font-awesome" size={30} style="regular" container={styles.topIcon} />
+          <TouchableIcon
+            name="bell"
+            library="font-awesome"
+            size={30}
+            style="regular"
+            container={styles.topIcon}
+            callback={() => {}}
+          />
           <Text style={styles.notifications}> 5 </Text>
-          <TouchableIcon name="sign-out" library="font-awesome" size={30} style="regular" container={styles.topIcon} />
+          <TouchableIcon
+            name="sign-out"
+            library="font-awesome"
+            size={30}
+            style="regular"
+            container={styles.topIcon}
+            callback={() => {}}
+          />
         </View>
         <View>
           <Picker
             selectedValue={this.props.showUpcoming ? 'upcoming' : 'past'}
             style={styles.DropdownMenu}
-            onValueChange={() => this.props.toggleEventsFeedType()}>
+            onValueChange={() => toggleEventsFeedType()}>
             <Picker.Item label="Upcoming" value="upcoming" />
             <Picker.Item label="Past" value="past" />
           </Picker>

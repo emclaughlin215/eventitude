@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { EventsFeed } from './EventsFeed';
 import { ICombinedReducers } from '../../../reducers/index';
+import { withNavigation } from 'react-navigation';
 
 const mapStateToProps = (state: ICombinedReducers) => {
   return {
@@ -8,4 +9,4 @@ const mapStateToProps = (state: ICombinedReducers) => {
   };
 };
 
-export default connect(mapStateToProps)(EventsFeed);
+export default connect(mapStateToProps)(withNavigation(EventsFeed));

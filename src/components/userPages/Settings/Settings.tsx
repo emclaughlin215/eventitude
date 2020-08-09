@@ -12,8 +12,9 @@ import {
   updateDisplayDarkMode,
 } from '../../../actions/SettingsAction';
 import { updatePrivacyPhoneNumber } from './../../../actions/SettingsAction';
+import { NavigationInjectedProps } from 'react-navigation';
 
-interface ISettingsPropsWithState {
+interface ISettingsPropsWithState extends NavigationInjectedProps {
   state: ISettingsReducer;
 }
 

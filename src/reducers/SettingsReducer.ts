@@ -17,7 +17,7 @@ const defaultState: ISettingsReducer = {
   phoneNumber: '',
   email: '',
   profile: '',
-  MapDarkMode: false,
+  mapDarkMode: false,
 };
 
 export interface ISettingsAction {

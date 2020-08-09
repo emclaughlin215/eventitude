@@ -8,7 +8,7 @@ import reducers from './src/reducers/index';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
-const App: () => React$Node = () => {
+const App: () => React.ReactNode = () => {
   return (
     <Provider store={store}>
       <MasterNavigation />

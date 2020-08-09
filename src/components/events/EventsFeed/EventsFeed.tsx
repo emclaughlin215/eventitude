@@ -7,8 +7,9 @@ import { Icon } from 'react-native-elements';
 import AppHeader from './../../appHeader/index';
 import { eventFeedStyles as styles } from './styles';
 import { IEvent } from '../../../reducers/EventsReducer';
+import { NavigationInjectedProps } from 'react-navigation';
 
-interface IEventsFeed {
+interface IEventsFeedProps extends NavigationInjectedProps {
   showUpcoming: boolean;
   events: IEvent[];
 }
@@ -17,8 +18,8 @@ interface IEventsFeedState {
   createEvent: boolean;
 }
 
-export class EventsFeed extends React.Component<IEventsFeed, IEventsFeedState> {
-  constructor(props: IEventsFeed) {
+export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedState> {
+  constructor(props: IEventsFeedProps) {
     super(props);
     this.state = {
       createEvent: false,
@@ -43,7 +44,6 @@ export class EventsFeed extends React.Component<IEventsFeed, IEventsFeedState> {
       })
       .map((value) => (
         <PreviewEvent
-          navigation={this.props.navigation}
           key={value.title + '_' + value.dateTime}
           title={value.title}
           date={value.dateTime}
@@ -65,19 +65,9 @@ export class EventsFeed extends React.Component<IEventsFeed, IEventsFeedState> {
         <View style={[styles.overlay, { height: this.state.createEvent ? 600 : 50 }]}>
           <TouchableWithoutFeedback onPress={() => this.toggleCreateEvent()} style={styles.expandButton}>
             <View transparent={true} style={styles.expandBar}>
-              <Icon
-                name={this.state.createEvent ? 'angle-down' : 'angle-up'}
-                style={styles.arrowStyle}
-                type="font-awesome"
-                size={25}
-              />
+              <Icon name={this.state.createEvent ? 'angle-down' : 'angle-up'} type="font-awesome" size={25} />
               <Text style={styles.title}> Create Event </Text>
-              <Icon
-                name={this.state.createEvent ? 'angle-down' : 'angle-up'}
-                style={styles.arrowStyle}
-                type="font-awesome"
-                size={25}
-              />
+              <Icon name={this.state.createEvent ? 'angle-down' : 'angle-up'} type="font-awesome" size={25} />
             </View>
           </TouchableWithoutFeedback>
           <View style={[styles.newEventArea, { height: this.state.createEvent ? 550 : 0 }]}>
