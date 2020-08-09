@@ -1,13 +1,14 @@
-import React from 'react';
-import { View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
-import PreviewEvent from './PreviewEvent';
-import CreateEvent from './../CreateEvent/index';
 import moment from 'moment';
+import React from 'react';
+import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import AppHeader from './../../appHeader/index';
-import { eventFeedStyles as styles } from './styles';
-import { IEvent } from '../../../reducers/EventsReducer';
 import { NavigationInjectedProps } from 'react-navigation';
+
+import { IEvent } from '../../../reducers/EventsReducer';
+import AppHeader from './../../appHeader';
+import CreateEvent from './../CreateEvent';
+import PreviewEvent from './PreviewEvent';
+import { eventFeedStyles as styles } from './styles';
 
 interface IEventsFeedProps extends NavigationInjectedProps {
   showUpcoming: boolean;
@@ -64,7 +65,7 @@ export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedSta
         </ScrollView>
         <View style={[styles.overlay, { height: this.state.createEvent ? 600 : 50 }]}>
           <TouchableWithoutFeedback onPress={() => this.toggleCreateEvent()} style={styles.expandButton}>
-            <View transparent={true} style={styles.expandBar}>
+            <View style={styles.expandBar}>
               <Icon name={this.state.createEvent ? 'angle-down' : 'angle-up'} type="font-awesome" size={25} />
               <Text style={styles.title}> Create Event </Text>
               <Icon name={this.state.createEvent ? 'angle-down' : 'angle-up'} type="font-awesome" size={25} />

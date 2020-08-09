@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, FlatList, TouchableHighlight, Text, Dimensions, Image, StyleSheet, Alert, Modal } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
 import { Colors } from '@blueprintjs/core';
+import React from 'react';
+import { Alert, Dimensions, FlatList, Image, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export interface ISelectedImage {
   path: string;
@@ -39,7 +39,7 @@ export class ImageSelector extends React.Component<IImageProps, IImageSelectorSt
             ? styles.imageRoundSmall
             : styles.imageRoundMedium
         }
-        source={image}
+        source={require(image)}
       />
     ) : (
       <Image
@@ -50,7 +50,7 @@ export class ImageSelector extends React.Component<IImageProps, IImageSelectorSt
             ? styles.imageSquareSmall
             : styles.imageSquareMedium
         }
-        source={image}
+        source={require(image)}
       />
     );
   };

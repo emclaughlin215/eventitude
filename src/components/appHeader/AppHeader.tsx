@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Picker, Text } from 'react-native';
-import styles from './styles';
-import { TouchableIcon } from './../../utils/touchableComponents';
+import { Picker, Text, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
+
 import { toggleEventsFeedType } from '../../actions/EventsFeedAction';
+import { TouchableIcon } from './../../utils/touchableComponents';
+import styles from './styles';
 
 export interface IAppHeader extends NavigationInjectedProps {
   showUpcoming: boolean;
@@ -26,7 +27,6 @@ export class AppHeader extends React.Component<IAppHeader> {
             name="user"
             library="font-awesome"
             size={30}
-            style="regular"
             container={styles.topIcon}
             callback={() => this.props.navigation.navigate('profile')}
           />
@@ -34,7 +34,6 @@ export class AppHeader extends React.Component<IAppHeader> {
             name="cogs"
             library="font-awesome"
             size={30}
-            style="regular"
             container={styles.topIcon}
             callback={() => this.props.navigation.navigate('settings')}
           />
@@ -42,7 +41,6 @@ export class AppHeader extends React.Component<IAppHeader> {
             name="bell"
             library="font-awesome"
             size={30}
-            style="regular"
             container={styles.topIcon}
             callback={() => {}}
           />
@@ -51,7 +49,6 @@ export class AppHeader extends React.Component<IAppHeader> {
             name="sign-out"
             library="font-awesome"
             size={30}
-            style="regular"
             container={styles.topIcon}
             callback={() => {}}
           />

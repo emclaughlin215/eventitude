@@ -1,18 +1,16 @@
-import React from 'react';
-
-import { View, Text, FlatList } from 'react-native';
-import { InputLine } from './../../../utils/keyValueComponents';
-import { ImageSelector } from './../../../utils/imageComponents';
-import { styles } from './styles';
 import moment from 'moment';
-
-import { PermissionsAndroid } from 'react-native';
+import React from 'react';
+import { FlatList, PermissionsAndroid, Text, View } from 'react-native';
 import Contacts from 'react-native-contacts';
-import { ContactSelector } from './../../../utils/contactComponent';
-import { TouchableButton } from './../../../utils/touchableComponents';
-import { globalStylesLight } from './../../../utils/globalStyles';
-import { addEvent } from './../../../actions/CreateEventAction';
+
 import { ISelectedImage } from '../../../utils/imageComponents';
+import { addEvent } from './../../../actions/CreateEventAction';
+import { ContactSelector } from './../../../utils/contactComponent';
+import { globalStylesLight } from './../../../utils/globalStyles';
+import { ImageSelector } from './../../../utils/imageComponents';
+import { InputLine } from './../../../utils/keyValueComponents';
+import { TouchableButton } from './../../../utils/touchableComponents';
+import { styles } from './styles';
 
 export interface ICreateEventProps {
   cancelCallback: () => void;
@@ -145,7 +143,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
         property: 'Date & Time ',
         value: '',
         defaultValue: '',
-        setStateCallback: (val: Date) =>
+        setStateCallback: (val: string) =>
           this.setState({ dateTime: moment(val, 'HH mm Do MMM YYYY').format('DD-MM-YYYY HH:mm') }),
         editType: 'dateTimePicker',
       },
@@ -162,7 +160,7 @@ export class CreateEvent extends React.Component<ICreateEventProps, ICreateEvent
         <Text style={styles.headerText}>{pageToButton[this.state.pageNumber].name}</Text>
         <View style={styles.editContainer}>
           {this.state.pageNumber === 0 ? (
-            <InputLine properties={eventProperties} />
+            <InputLine {...eventProperties} />
           ) : this.state.pageNumber === 1 ? (
             <View style={styles.imageArea}>
               <ImageSelector

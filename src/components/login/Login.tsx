@@ -1,12 +1,13 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { View, Button, Text, AsyncStorage } from 'react-native';
-import { connect, useDispatch } from 'react-redux';
-import { InputLine } from './../../utils/keyValueComponents';
-import { login } from './../../actions/UserAction';
-import { globalStylesLight } from '../../utils/globalStyles';
-import { ICombinedReducers } from '../../reducers/index';
+import { AsyncStorage, Button, Text, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
+import { connect, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { ICombinedReducers } from '../../reducers';
+import { globalStylesLight } from '../../utils/globalStyles';
+import { login } from './../../actions/UserAction';
+import { InputLine } from './../../utils/keyValueComponents';
 
 interface ILoginProps extends NavigationInjectedProps {}
 
@@ -49,7 +50,7 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
     ];
     return (
       <View style={globalStylesLight.container}>
-        <InputLine properties={inputs} />
+        <InputLine {...inputs} />
         <Button
           title="Login"
           onPress={() =>

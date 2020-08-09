@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, FlatList, Text, Dimensions, StyleSheet, TextInput, Picker } from 'react-native';
+import { Dimensions, Picker, StyleSheet, Text, TextInput, View, VirtualizedList } from 'react-native';
+
 import MyDatePicker from './dateComponents';
 
 export interface IInputLineProperty {
   property: string;
-  value?: string;
+  value?: string | boolean;
   defaultValue?: string;
   editType: string;
-  setStateCallback: (val: string | Date) => any;
+  setStateCallback: (val: string) => any;
 }
 
 export interface IInputLine extends Array<IInputLineProperty> {}
@@ -19,7 +20,7 @@ export class InputLine extends React.Component<IInputLine> {
   render() {
     return (
       <View style={styles.properties}>
-        <FlatList<IInputLineProperty>
+        <VirtualizedList<IInputLineProperty>
           data={this.props}
           renderItem={({ item }) => (
             <View style={styles.keyValue}>
@@ -74,7 +75,7 @@ export class InputLine extends React.Component<IInputLine> {
               )}
             </View>
           )}
-          keyExtractor={(item) => item.property}
+          keyExtractor={(item: IInputLineProperty) => item.property}
         />
       </View>
     );
@@ -85,13 +86,11 @@ export interface IDisplayKeyValue {
   property: string;
   value: string;
   defaultValue: string;
-  setStateCallback: (val: string | Date) => void;
+  setStateCallback: (val: string) => any;
   editType: string;
 }
 
-export interface IDisplayKeyValues {
-  properties: IDisplayKeyValue[];
-}
+export interface IDisplayKeyValues extends Array<IDisplayKeyValue> {}
 
 export class DisplayKeyValues extends React.Component<IDisplayKeyValues> {
   constructor(props: IDisplayKeyValues) {
@@ -100,8 +99,8 @@ export class DisplayKeyValues extends React.Component<IDisplayKeyValues> {
   render() {
     return (
       <View style={styles.properties}>
-        <FlatList
-          data={this.props.properties}
+        <VirtualizedList<IDisplayKeyValue>
+          data={this.props}
           renderItem={({ item }) => (
             <View style={styles.keyValue}>
               <Text style={styles.propertyText}>{item.property}</Text>

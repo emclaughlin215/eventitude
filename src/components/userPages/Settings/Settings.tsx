@@ -1,18 +1,19 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import { capitalizeFirst } from './../../../utils/stringUtils';
-import { InputLine } from './../../../utils/keyValueComponents';
-import { styles } from './styles';
-import { ISettingsReducer, ISettingsAction } from '../../../reducers/SettingsReducer';
-import {
-  updateMapDarkMode,
-  updatePrivacyProfile,
-  updatePrivacyEmail,
-  updateDisplayDateFormat,
-  updateDisplayDarkMode,
-} from '../../../actions/SettingsAction';
-import { updatePrivacyPhoneNumber } from './../../../actions/SettingsAction';
+import { ScrollView, Text, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
+
+import {
+  updateDisplayDarkMode,
+  updateDisplayDateFormat,
+  updateMapDarkMode,
+  updatePrivacyEmail,
+  updatePrivacyProfile,
+} from '../../../actions/SettingsAction';
+import { ISettingsReducer } from '../../../reducers/SettingsReducer';
+import { updatePrivacyPhoneNumber } from './../../../actions/SettingsAction';
+import { InputLine } from './../../../utils/keyValueComponents';
+import { capitalizeFirst } from './../../../utils/stringUtils';
+import { styles } from './styles';
 
 interface ISettingsPropsWithState extends NavigationInjectedProps {
   state: ISettingsReducer;
@@ -35,7 +36,7 @@ export class Settings extends React.Component<ISettingsPropsWithState> {
         editType: 'dateFormatPicker',
         property: 'Date Format',
         value: this.props.state.dateFormat,
-        setStateCallback: (val: ISettingsAction) => updateDisplayDateFormat(val),
+        setStateCallback: (val: string) => updateDisplayDateFormat(val),
       },
       {
         editType: 'boolean',

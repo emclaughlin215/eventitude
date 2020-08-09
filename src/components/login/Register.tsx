@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
+
+import { ICombinedReducers } from '../../reducers';
 import { InputLine } from './../../utils/keyValueComponents';
-import { ICombinedReducers } from '../../reducers/index';
 
 interface IRegisterState {
   details: {
@@ -86,7 +87,7 @@ export class Register extends React.Component<{}, IRegisterState> {
     ];
     return (
       <View>
-        <InputLine properties={inputs} />
+        <InputLine {...inputs} />
         <Button
           title="Register"
           onPress={() => this.validate()}

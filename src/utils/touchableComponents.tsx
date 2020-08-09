@@ -1,14 +1,14 @@
 import React from 'react';
-import { TouchableWithoutFeedback, TouchableHighlight, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { IGlobalButtonStyle, globalStylesLight } from './globalStyles';
+
+import { globalStylesLight, IGlobalButtonStyle } from './globalStyles';
 
 export interface ITouchableIcon {
   callback: (arg: any) => void;
   name: string;
   library: string;
   size: number;
-  style: string;
   container: any;
 }
 
@@ -24,7 +24,6 @@ export class TouchableIcon extends React.Component<ITouchableIcon> {
           name={this.props.name}
           type={this.props.library}
           size={this.props.size}
-          iconStyle={this.props.style}
           containerStyle={{ ...this.props.container, ...globalStylesLight.container }}
         />
       </TouchableWithoutFeedback>

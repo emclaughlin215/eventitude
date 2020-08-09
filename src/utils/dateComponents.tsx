@@ -1,13 +1,14 @@
+import moment from 'moment';
 import React from 'react';
 import DatePicker from 'react-native-datepicker';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import { ICombinedReducers } from '../reducers/index';
+
+import { ICombinedReducers } from '../reducers';
 import { ISettingsReducer } from '../reducers/SettingsReducer';
 
 export interface IMyDatePicker {
   editType: string;
-  callback: (val: Date | string) => void;
+  callback: (val: string) => void;
   defaultValue?: string;
 }
 

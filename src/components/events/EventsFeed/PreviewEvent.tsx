@@ -1,11 +1,12 @@
-import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { connect, useDispatch } from 'react-redux';
-import { goToEvent } from '../../../actions/EventsFeedAction';
-import { bindActionCreators } from 'redux';
 import moment from 'moment';
-import { previewStyles as styles } from './styles';
+import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { connect, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { goToEvent } from '../../../actions/EventsFeedAction';
+import { previewStyles as styles } from './styles';
 
 interface IPreviewEventProps extends NavigationInjectedProps {
   date: string;
@@ -30,7 +31,7 @@ export class PreviewEvent extends React.Component<IPreviewEventProps> {
           <Text style={styles.title}>{this.props.title}</Text>
           <Text style={styles.date}>{moment(this.props.date, 'DD-MM-YYYY').format('Ha Do MMM YYYY')}</Text>
         </View>
-        <Image source={this.props.image} style={styles.image} />
+        <Image source={require(this.props.image)} style={styles.image} />
       </TouchableOpacity>
     );
   }

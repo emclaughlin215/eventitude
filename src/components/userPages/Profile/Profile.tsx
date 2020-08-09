@@ -1,12 +1,13 @@
-import React from 'react';
-import { Text, View, Modal, TouchableHighlight } from 'react-native';
 import moment from 'moment';
-import { InputLine, DisplayKeyValues } from './../../../utils/keyValueComponents';
-import { ImageSelector } from './../../../utils/imageComponents';
-import { styles } from './styles';
+import React from 'react';
+import { Modal, Text, TouchableHighlight, View } from 'react-native';
+
+import { updateDob, updateEmail, updateName, updatePhoneNumber } from '../../../actions/UserAction';
 import { ISettingsReducer } from '../../../reducers/SettingsReducer';
 import { IUserReducer } from '../../../reducers/UserReducer';
-import { updateName, updateDob, updatePhoneNumber, updateEmail } from '../../../actions/UserAction';
+import { ImageSelector } from './../../../utils/imageComponents';
+import { DisplayKeyValues, InputLine } from './../../../utils/keyValueComponents';
+import { styles } from './styles';
 
 interface IProfileState {
   editMode: boolean;
@@ -94,11 +95,11 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
           }}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <InputLine properties={profileProperties} />
+              <InputLine {...profileProperties} />
             </View>
           </View>
         </Modal>
-        <DisplayKeyValues properties={profileProperties} />
+        <DisplayKeyValues {...profileProperties} />
         <View style={styles.editProfileButtonContainer}>
           <TouchableHighlight
             style={styles.editProfileButton}
