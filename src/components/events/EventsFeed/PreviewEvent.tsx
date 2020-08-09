@@ -5,7 +5,7 @@ import { goToEvent } from '../../../actions/EventsFeedAction';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { previewStyles as styles } from './styles';
-import { NavigationInjectedProps } from 'react-navigation';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 
 interface IPreviewEventProps extends NavigationInjectedProps {
   date: string;
@@ -49,4 +49,4 @@ const mapDispatchToProps = () => {
 export default connect(
   null,
   mapDispatchToProps,
-)(PreviewEvent);
+)(withNavigation(PreviewEvent));

@@ -6,13 +6,11 @@ export interface IInputLineProperty {
   property: string;
   value?: string;
   defaultValue?: string;
-  setStateCallback: (val: string | Date) => any;
   editType: string;
+  setStateCallback: (val: string | Date) => any;
 }
 
-export interface IInputLine {
-  properties: IInputLineProperty[];
-}
+export interface IInputLine extends Array<IInputLineProperty> {}
 
 export class InputLine extends React.Component<IInputLine> {
   constructor(props: IInputLine) {
@@ -21,8 +19,8 @@ export class InputLine extends React.Component<IInputLine> {
   render() {
     return (
       <View style={styles.properties}>
-        <FlatList
-          data={this.props.properties}
+        <FlatList<IInputLineProperty>
+          data={this.props}
           renderItem={({ item }) => (
             <View style={styles.keyValue}>
               <Text style={styles.propertyText}>{item.property}</Text>

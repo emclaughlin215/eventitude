@@ -84,7 +84,7 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
     ];
     return (
       <View style={styles.page}>
-        <ImageSelector image={this.props.userState.image} size="small" shape="round" callbackImage={() => {}} />
+        <ImageSelector image={this.props.userState.image} size="small" shape="round" callbackSetImage={() => {}} />
         <Modal
           animationType="slide"
           transparent={true}

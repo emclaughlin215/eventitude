@@ -36,11 +36,13 @@ export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedSta
     });
   };
 
-  getFilteredEvents = (reverse: number) => {
+  getFilteredEvents = () => {
+    let showUpcoming = this.props.showUpcoming;
     return this.props.events
-      .filter((event) => reverse * (moment.now() - moment(event.dateTime, 'DD-MM-YYYY')) <= 0)
+      .filter((event) => showUpcoming === moment(event.dateTime, 'DD-MM-YYYY').isAfter(moment.now()))
       .sort(function(a, b) {
-        return reverse * (moment(a.dateTime, 'DD-MM-YYYY') - moment(b.dateTime, 'DD-MM-YYYY'));
+        let relativeDate = moment(a.dateTime, 'DD-MM-YYYY').isAfter(moment(b.dateTime, 'DD-MM-YYYY'));
+        return showUpcoming && relativeDate ? 1 : -1;
       })
       .map((value) => (
         <PreviewEvent
@@ -58,9 +60,7 @@ export class EventsFeed extends React.Component<IEventsFeedProps, IEventsFeedSta
       <>
         <AppHeader navigation={this.props.navigation} />
         <ScrollView>
-          <View style={styles.eventsFeed}>
-            {this.props.showUpcoming ? this.getFilteredEvents(1) : this.getFilteredEvents(-1)}
-          </View>
+          <View style={styles.eventsFeed}>{this.getFilteredEvents()}</View>
         </ScrollView>
         <View style={[styles.overlay, { height: this.state.createEvent ? 600 : 50 }]}>
           <TouchableWithoutFeedback onPress={() => this.toggleCreateEvent()} style={styles.expandButton}>
