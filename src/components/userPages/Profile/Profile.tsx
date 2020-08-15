@@ -46,11 +46,12 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
 
   render() {
     const dateFormat = this.props.settingsState.dateFormat;
+    const first = this.props.userState.first;
     const profileProperties = [
       {
         property: 'First Name: ',
-        value: this.state.firstName,
-        defaultValue: this.state.firstName,
+        value: first,
+        defaultValue: first,
         setStateCallback: (val: string) => updateName(val, this.props.userState.last),
         editType: 'text',
       },
@@ -58,7 +59,7 @@ export class Profile extends React.Component<IProfilePropsWithState, IProfileSta
         property: 'Surname',
         value: this.props.userState.last,
         defaultValue: this.props.userState.last,
-        setStateCallback: (val: string) => updateName(this.props.userState.first, val),
+        setStateCallback: (val: string) => updateName(first, val),
         editType: 'text',
       },
       {

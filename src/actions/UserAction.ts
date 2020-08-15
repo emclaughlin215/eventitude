@@ -1,5 +1,14 @@
 import { constants } from '../constants';
 
+export interface User {
+  userId: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  phoneNumber: string;
+}
+
 export const login = (
   username: string,
   password: string,
@@ -9,7 +18,7 @@ export const login = (
   return (dispatch: Function) =>
     fetch('http://192.168.1.137:3000/users/get?username=' + username)
       .then((response) => response.json())
-      .then((users) => {
+      .then((users: User[]) => {
         console.log(JSON.stringify(users));
 
         if (users.length === 0) {
@@ -27,10 +36,15 @@ export const login = (
       });
 };
 
-const _getUser = (user: string) => {
+const _getUser = (user: User) => {
   return {
     type: constants.getUser,
-    payload: user,
+    userId: user.userId,
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    password: user.password,
+    phoneNumber: user.phoneNumber,
   };
 };
 

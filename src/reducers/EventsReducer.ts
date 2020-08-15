@@ -11,17 +11,25 @@ export interface IEvent {
   guests: Contacts.Contact[];
 }
 
-export interface IEventsReducer {
-  events: IEvent[];
+export interface IEventAction extends IEvent {
+  eventId?: string;
 }
 
-export interface IAddEventActionWithType extends IEvent {
+export interface IEventsReducer {
+  currentEvent: string;
+  events: {
+    [eventId: string]: IEvent;
+  };
+}
+
+export interface IEventActionWithType extends IEventAction {
   type: string;
 }
 
 const defaultState: IEventsReducer = {
-  events: [
-    {
+  currentEvent: '',
+  events: {
+    '0': {
       title: 'New Years Eve',
       location: 'London',
       description: '',
@@ -29,7 +37,7 @@ const defaultState: IEventsReducer = {
       image: require('../resources/images/NewYear.jpg'),
       guests: [],
     },
-    {
+    '1': {
       title: 'lauras Birthday',
       location: 'London',
       description: '',
@@ -37,7 +45,7 @@ const defaultState: IEventsReducer = {
       image: require('../resources/images/MyBirthday.jpg'),
       guests: [],
     },
-    {
+    '2': {
       title: 'New Years Eve',
       location: 'London',
       description: '',
@@ -45,7 +53,7 @@ const defaultState: IEventsReducer = {
       image: require('../resources/images/eventImage1.jpg'),
       guests: [],
     },
-    {
+    '3': {
       title: 'My Birthday',
       location: 'London',
       description: '',
@@ -53,11 +61,16 @@ const defaultState: IEventsReducer = {
       image: require('../resources/images/eventImage1.jpg'),
       guests: [],
     },
-  ],
+  },
 };
 
-export const EventsReducer = (state = defaultState, action: IAddEventActionWithType) => {
+export const EventsReducer = (state = defaultState, action: IEventActionWithType) => {
   switch (action.type) {
+    case constants.goToEvent:
+      return {
+        ...state,
+        currentEvent: action.eventId,
+      };
     case constants.addEvent:
       const newEvent = {
         title: action.title,
@@ -69,7 +82,7 @@ export const EventsReducer = (state = defaultState, action: IAddEventActionWithT
       };
       return {
         ...state,
-        events: [...state.events, newEvent],
+        events: { ...state.events, newEvent },
       };
     default:
       return state;

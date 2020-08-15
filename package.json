@@ -22,6 +22,7 @@
     "react-date-picker": "^8.0.1",
     "react-datepicker": "^2.14.1",
     "react-dates": "^21.8.0",
+    "react-devtools": "^3.6.3",
     "react-dom": "^16.12.0",
     "react-native": "0.61.5",
     "react-native-appearance": "^0.3.4",

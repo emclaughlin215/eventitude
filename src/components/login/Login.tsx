@@ -8,8 +8,11 @@ import { ICombinedReducers } from '../../reducers';
 import { globalStylesLight } from '../../utils/globalStyles';
 import { login } from './../../actions/UserAction';
 import { InputLine } from './../../utils/keyValueComponents';
+import { styles } from './styles';
 
-interface ILoginProps extends NavigationInjectedProps {}
+interface ILoginProps extends NavigationInjectedProps {
+  login: typeof login;
+}
 
 interface ILoginState {
   username: string;
@@ -28,11 +31,10 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
   }
 
   loginActions = () => {
-    AsyncStorage.setItem('userId', 'abc')
-      .then((_res) => this.props.navigation.navigate('App'))
-      .catch((error) => {
-        console.log(error.message);
-      });
+    AsyncStorage.setItem('userId', 'abc').catch((error) => {
+      console.log(error.message);
+    });
+    this.props.navigation.navigate('App');
   };
 
   render() {
@@ -49,20 +51,22 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
       },
     ];
     return (
-      <View style={{ ...globalStylesLight.container }}>
-        <InputLine {...inputs} />
-        <Button
-          title="Login"
-          onPress={() =>
-            login(
-              this.state.username,
-              this.state.password,
-              (val: string) => this.setState({ message: val }),
-              () => this.loginActions(),
-            )
-          }
-        />
-        <Text> {this.state.message} </Text>
+      <View style={styles.outContainer}>
+        <View style={{ ...globalStylesLight.container, ...styles.container }}>
+          <InputLine {...inputs} />
+          <Button
+            title="Login"
+            onPress={() =>
+              this.props.login(
+                this.state.username,
+                this.state.password,
+                (val: string) => this.setState({ message: val }),
+                () => this.loginActions(),
+              )
+            }
+          />
+          <Text> {this.state.message} </Text>
+        </View>
       </View>
     );
   }

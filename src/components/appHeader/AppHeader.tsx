@@ -8,6 +8,7 @@ import styles from './styles';
 
 export interface IAppHeader extends NavigationInjectedProps {
   showUpcoming: boolean;
+  toggleEventsFeedType: typeof toggleEventsFeedType;
 }
 
 export class AppHeader extends React.Component<IAppHeader> {
@@ -15,9 +16,6 @@ export class AppHeader extends React.Component<IAppHeader> {
     super(props);
     this.state = {};
   }
-  // logoutActions = async () => {
-  //   AsyncStorage.clear().then(this.props.navigation.navigate('AuthLoading'));
-  // };
 
   render() {
     return (
@@ -51,7 +49,7 @@ export class AppHeader extends React.Component<IAppHeader> {
           <Picker
             selectedValue={this.props.showUpcoming ? 'upcoming' : 'past'}
             style={styles.DropdownMenu}
-            onValueChange={() => toggleEventsFeedType()}>
+            onValueChange={() => this.props.toggleEventsFeedType()}>
             <Picker.Item label="Upcoming" value="upcoming" />
             <Picker.Item label="Past" value="past" />
           </Picker>

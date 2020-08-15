@@ -11,6 +11,11 @@ export interface IInputLineProperty {
   setStateCallback: (val: string) => any;
 }
 
+export interface IDateFormatResult {
+  type: string;
+  disp: string;
+}
+
 export interface IInputLine extends Array<IInputLineProperty> {}
 
 export class InputLine extends React.Component<IInputLine> {

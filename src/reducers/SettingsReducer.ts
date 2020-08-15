@@ -21,7 +21,7 @@ const defaultState: ISettingsReducer = {
 };
 
 export interface ISettingsAction {
-  dateFormat?: string;
+  payload?: string;
 }
 
 export interface ISettingsActionWithType extends ISettingsAction {
@@ -38,7 +38,7 @@ export const SettingsReducer = (state = defaultState, action: ISettingsActionWit
     case constants.updateDisplayDateFormat:
       return {
         ...state,
-        dateFormat: action.dateFormat,
+        dateFormat: action.payload,
       };
     case constants.updatePrivacyPhoneNumber:
       return {

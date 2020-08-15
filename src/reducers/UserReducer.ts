@@ -1,6 +1,7 @@
 import { constants } from '../constants';
 
 export interface IUserReducer {
+  userId: number;
   username: string;
   first: string;
   last: string;
@@ -12,6 +13,7 @@ export interface IUserReducer {
 }
 
 export interface IUserAction {
+  userId?: number;
   username?: string;
   password?: string;
   firstName?: string;
@@ -29,6 +31,7 @@ interface IUserActionWithType extends IUserAction {
 }
 
 const defaultState: IUserReducer = {
+  userId: 0,
   username: '',
   first: '',
   last: '',
@@ -44,10 +47,12 @@ export const UserReducer = (state = defaultState, action: IUserActionWithType) =
     case constants.getUser:
       return {
         ...state,
+        userId: action.userId,
         username: action.username,
         first: action.firstName,
         last: action.lastName,
         password: action.password,
+        phoneNumber: action.phoneNumber,
       };
     case constants.updateName:
       return {

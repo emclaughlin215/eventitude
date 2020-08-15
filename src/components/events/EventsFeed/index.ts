@@ -1,12 +1,28 @@
-import { connect } from 'react-redux';
-import { EventsFeed } from './EventsFeed';
-import { ICombinedReducers } from '../../../reducers/index';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { updateCreateEventFlag } from '../../../actions/EventsFeedAction';
+import { ICombinedReducers } from '../../../reducers';
+import { EventsFeed } from './EventsFeed';
 
 const mapStateToProps = (state: ICombinedReducers) => {
   return {
-    state: state.EventsFeedReducer,
+    eventsFeedState: state.EventsFeedReducer,
+    eventsState: state.EventsReducer,
   };
 };
 
-export default connect(mapStateToProps)(withNavigation(EventsFeed));
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(
+    {
+      updateCreateEventFlag,
+    },
+    dispatch,
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withNavigation(EventsFeed));

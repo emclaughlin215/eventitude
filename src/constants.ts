@@ -19,4 +19,5 @@ export const constants = {
   goToEvent: 'GO_TO_EVENT',
   updateEventsFeedType: 'UPDATE_EVENTS_FEED_TYPE',
   addEvent: 'ADD_EVENT',
+  updateCreateEventFlag: 'UPDATE_CREATE_EVENT_FLAG',
 };

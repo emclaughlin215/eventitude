@@ -17,6 +17,12 @@ import { styles } from './styles';
 
 interface ISettingsPropsWithState extends NavigationInjectedProps {
   state: ISettingsReducer;
+  updateDisplayDarkMode: typeof updateDisplayDarkMode;
+  updateDisplayDateFormat: typeof updateDisplayDateFormat;
+  updatePrivacyPhoneNumber: typeof updatePrivacyPhoneNumber;
+  updatePrivacyEmail: typeof updatePrivacyEmail;
+  updatePrivacyProfile: typeof updatePrivacyProfile;
+  updateMapDarkMode: typeof updateMapDarkMode;
 }
 
 export class Settings extends React.Component<ISettingsPropsWithState> {
@@ -30,37 +36,37 @@ export class Settings extends React.Component<ISettingsPropsWithState> {
         editType: 'boolean',
         property: 'Dark Mode',
         value: this.props.state.darkMode,
-        setStateCallback: () => updateDisplayDarkMode(),
+        setStateCallback: () => this.props.updateDisplayDarkMode(),
       },
       {
         editType: 'dateFormatPicker',
         property: 'Date Format',
         value: this.props.state.dateFormat,
-        setStateCallback: (val: string) => updateDisplayDateFormat(val),
+        setStateCallback: (val: string) => this.props.updateDisplayDateFormat(val),
       },
       {
         editType: 'boolean',
         property: 'Phone Number',
         value: this.props.state.phoneNumber,
-        setStateCallback: () => updatePrivacyPhoneNumber(),
+        setStateCallback: () => this.props.updatePrivacyPhoneNumber(),
       },
       {
         editType: 'boolean',
         property: 'E-mail',
         value: this.props.state.email,
-        setStateCallback: () => updatePrivacyEmail(),
+        setStateCallback: () => this.props.updatePrivacyEmail(),
       },
       {
         editType: 'boolean',
         property: 'Profile',
         value: this.props.state.profile,
-        setStateCallback: () => updatePrivacyProfile(),
+        setStateCallback: () => this.props.updatePrivacyProfile(),
       },
       {
         editType: 'boolean',
-        property: 'Dark Mode',
+        property: 'Map Dark Mode',
         value: this.props.state.mapDarkMode,
-        setStateCallback: () => updateMapDarkMode(),
+        setStateCallback: () => this.props.updateMapDarkMode(),
       },
     ];
     return (

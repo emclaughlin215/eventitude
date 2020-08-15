@@ -2,22 +2,18 @@ import { constants } from './../constants';
 
 export interface IEventsFeedReducer {
   showUpcoming: boolean;
-  date: string;
-  title: string;
-  image: string;
+  createEventFlag: boolean;
+  currentEvent: string;
 }
 
 const defaultState: IEventsFeedReducer = {
   showUpcoming: true,
-  date: '',
-  title: '',
-  image: '',
+  createEventFlag: false,
+  currentEvent: '',
 };
 
 export interface IEventsFeedAction {
-  date?: string;
-  title?: string;
-  image?: string;
+  eventId?: string;
 }
 
 export interface IEventsFeedActionWithType extends IEventsFeedAction {
@@ -31,12 +27,11 @@ export const EventsFeedReducer = (state = defaultState, action: IEventsFeedActio
         ...state,
         showUpcoming: !state.showUpcoming,
       };
-    case constants.goToEvent:
+
+    case constants.updateCreateEventFlag:
       return {
         ...state,
-        date: action.date,
-        title: action.title,
-        image: action.image,
+        createEventFlag: !state.createEventFlag,
       };
     default:
       return state;

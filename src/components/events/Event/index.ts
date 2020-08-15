@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
+
+import { ICombinedReducers } from '../../../reducers';
 import { Event } from './Event';
-import { ICombinedReducers } from '../../../reducers/index';
 
 const mapStateToProps = (state: ICombinedReducers) => {
   return {
-    state: state.EventsFeedReducer,
+    state: state.EventsReducer,
   };
 };
 

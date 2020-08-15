@@ -3,7 +3,9 @@ import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ICombinedReducers } from '../../reducers';
+import { globalStylesLight } from '../../utils/globalStyles';
 import { InputLine } from './../../utils/keyValueComponents';
+import { styles } from './styles';
 
 interface IRegisterState {
   details: {
@@ -86,14 +88,16 @@ export class Register extends React.Component<{}, IRegisterState> {
       },
     ];
     return (
-      <View>
-        <InputLine {...inputs} />
-        <Button
-          title="Register"
-          onPress={() => this.validate()}
-          disabled={!Object.values(this.state.details).reduce((a, b) => !!a && !!b, true)}
-        />
-        <Text> {this.state.message} </Text>
+      <View style={styles.outContainer}>
+        <View style={{ ...globalStylesLight.container, ...styles.container }}>
+          <InputLine {...inputs} />
+          <Button
+            title="Register"
+            onPress={() => this.validate()}
+            disabled={!Object.values(this.state.details).reduce((a, b) => !!a && !!b, true)}
+          />
+          <Text> {this.state.message} </Text>
+        </View>
       </View>
     );
   }

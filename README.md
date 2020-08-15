@@ -59,6 +59,8 @@ An emulator phone should pop up, and once the app has build, you will be able to
 - Authentication / Login
   - Email
   - Phone Number
+  - Sessions
+  - 2FA
 
 ### Back End
 #### Server
@@ -73,3 +75,6 @@ An emulator phone should pop up, and once the app has build, you will be able to
   - Events
   - Users
   - Privacy / Security / Auth
+
+#### Tests
+  - 

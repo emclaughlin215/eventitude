@@ -5,13 +5,17 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { goToEvent } from '../../../actions/EventsFeedAction';
+import { ICombinedReducers } from '../../../reducers';
+import { IEventsReducer } from '../../../reducers/EventsReducer';
+import { ISettingsReducer } from '../../../reducers/SettingsReducer';
+import { goToEvent } from './../../../actions/EventsFeedAction';
 import { previewStyles as styles } from './styles';
 
 interface IPreviewEventProps extends NavigationInjectedProps {
-  date: string;
-  title: string;
-  image: string;
+  eventId: string;
+  eventsState: IEventsReducer;
+  settingsState: ISettingsReducer;
+  goToEvent: typeof goToEvent;
 }
 
 export class PreviewEvent extends React.Component<IPreviewEventProps> {
@@ -21,17 +25,22 @@ export class PreviewEvent extends React.Component<IPreviewEventProps> {
 
   goToEvent = () => {
     this.props.navigation.navigate('event');
-    goToEvent({ date: this.props.date, title: this.props.title, image: this.props.image });
+    this.props.goToEvent({ eventId: this.props.eventId });
   };
 
   render() {
+    console.log(this.props.eventsState.events[this.props.eventId].image);
     return (
       <TouchableOpacity style={styles.preview} onPress={() => this.goToEvent()}>
         <View style={styles.header}>
-          <Text style={styles.title}>{this.props.title}</Text>
-          <Text style={styles.date}>{moment(this.props.date, 'DD-MM-YYYY').format('Ha Do MMM YYYY')}</Text>
+          <Text style={styles.title}>{this.props.eventsState.events[this.props.eventId].title}</Text>
+          <Text style={styles.date}>
+            {moment(this.props.eventsState.events[this.props.eventId].dateTime, 'DD-MM-YYYY').format(
+              this.props.settingsState.dateFormat,
+            )}
+          </Text>
         </View>
-        <Image source={{ uri: this.props.image }} style={styles.image} />
+        <Image source={this.props.eventsState.events[this.props.eventId].image} style={styles.image} />
       </TouchableOpacity>
     );
   }
@@ -46,7 +55,14 @@ const mapDispatchToProps = (dispatch: any) => {
   );
 };
 
+const mapStateToProps = (state: ICombinedReducers) => {
+  return {
+    eventsState: state.EventsReducer,
+    settingsState: state.SettingsReducer,
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(withNavigation(PreviewEvent));
